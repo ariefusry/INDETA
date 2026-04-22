@@ -156,7 +156,7 @@
              window.location.href = '/admin-dashboard'; // Silakan sesuaikan dengan URL Admin kamu
           }, 1200);
         } else {
-          // Jika USER BIASA, arahkan ke index/homepage
+          // Jika USER BIASA, arahkan ke index/homepage user
           statusMessage.style.backgroundColor = 'rgba(25, 135, 84, 0.9)'; // Hijau bootstrap
           statusMessage.textContent = 'Login Berhasil! Mengalihkan ke Homepage...';
           btnLogin.textContent = 'Sukses!';

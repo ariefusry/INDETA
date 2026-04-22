@@ -1,0 +1,48 @@
+/* Kustomisasi kecil yang tidak dicover oleh class bawaan Bootstrap */
+body {
+    background: url("../images/background-login-register.png") no-repeat center
+        center/cover;
+}
+
+.bg-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.form-control:focus {
+    border-color: #f5d061;
+    box-shadow: 0 0 0 0.25rem rgba(245, 208, 97, 0.25);
+}
+
+.btn-gold {
+    background-color: #d6d6a8;
+    color: black;
+    transition:
+        background-color 0.3s,
+        transform 0.1s;
+}
+
+.btn-gold:hover {
+    background-color: #bdbd87;
+    color: black;
+}
+
+.btn-gold:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.btn-gold:disabled,
+.btn-gold.disabled {
+    background-color: #d6d6a8 !important;
+    color: black !important;
+    opacity: 1 !important;
+    cursor: wait !important;
+}
+
+.text-gold-hover:hover {
+    color: #f5d061 !important;
+}
+
+.pointer {
+    cursor: pointer;
+}

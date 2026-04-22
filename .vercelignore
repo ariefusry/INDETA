@@ -1,0 +1,15 @@
+# Abaikan folder dependensi (Vercel akan menginstall sendiri)
+/vendor
+/node_modules
+
+# Abaikan file environment lokal
+.env
+.env.*
+
+# Abaikan folder Git dan log
+.git
+/storage/*.log
+
+# PENTING: Abaikan entry point asli Laravel 
+# Supaya tidak bentrok dengan api/index.php
+/public/index.php

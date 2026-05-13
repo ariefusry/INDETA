@@ -64,8 +64,8 @@
   <!-- Skrip Auth Supabase JS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  
   <script>
-    const SUPABASE_URL = @json(env('SUPABASE_URL', ''));
-    const SUPABASE_ANON_KEY = @json(env('SUPABASE_ANON_KEY', ''));
+    const SUPABASE_URL = @json(config('services.supabase.url'));
+    const SUPABASE_ANON_KEY = @json(config('services.supabase.key'));
 
     let supabaseClient = null;
 

@@ -6,9 +6,9 @@
     <title>Destinasi - INDETA</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-[#f0eadd] text-gray-800 font-sans antialiased overflow-x-hidden">
+<body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden">
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-[#d6d6a8] shadow-md transition-all duration-300">
+    <header class="sticky top-0 z-50 bg-[#819E4A] shadow-md transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -17,125 +17,124 @@
                 </a>
 
                 <!-- Navigation -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="/index.html" class="text-[#3e2723] hover:text-[#5d4037] font-semibold transition-colors">Beranda</a>
-                    <a href="/destinasi" class="text-[#3e2723] hover:text-[#5d4037] font-bold transition-colors">Destinasi</a>
-                    <a href="/artikel" class="text-[#3e2723] hover:text-[#5d4037] font-semibold transition-colors">Artikel</a>
-                    <a href="#" class="text-[#3e2723] hover:text-[#5d4037] font-semibold transition-colors">About Us</a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="/index.html" class="nav-home text-white hover:text-gray-200 font-semibold transition-colors">Home</a>
+                    <a href="/destinasi" class="px-5 py-2 bg-black/20 rounded-[30px] text-white font-bold transition-colors">Destination</a>
+                    <a href="/categories" class="nav-categories text-white hover:text-gray-200 font-semibold transition-colors">Categories</a>
+                    <a href="/product" class="nav-product text-white hover:text-gray-200 font-semibold transition-colors">Product</a>
+                    <a href="/artikel" class="nav-artikel text-white hover:text-gray-200 font-semibold transition-colors">Article</a>
+                    <a href="#" class="nav-about text-white hover:text-gray-200 font-semibold transition-colors">About Us</a>
                 </nav>
 
                 <!-- Auth/Profile -->
                 <div class="flex items-center space-x-4">
-                    <button type="button" id="btn-logout" class="hidden px-5 py-2 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-full font-semibold transition-colors">Logout</button>
-                    <a href="/login" id="btn-login" class="px-5 py-2 border-2 border-[#3e2723] text-[#3e2723] hover:bg-[#3e2723] hover:text-white rounded-full font-semibold transition-colors">Login</a>
+                    <div id="auth-buttons">
+                        <a href="/login" id="btn-login" class="px-5 py-2 border-2 border-white text-white hover:bg-white hover:text-[#819E4A] rounded-full font-semibold transition-colors text-sm">Login</a>
+                    </div>
+                    
+                    <div id="user-profile" class="hidden flex flex-col items-center justify-center relative group cursor-pointer z-[100]">
+                        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white mb-1 shadow-sm">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="user-avatar" class="w-full h-full object-cover">
+                        </div>
+                        <span id="welcome-text" class="text-[10px] text-white/90">Welcome "name"</span>
+                        
+                        <!-- Logout Dropdown -->
+                        <div class="absolute top-12 right-0 bg-white text-gray-800 rounded-lg shadow-xl py-2 w-40 hidden group-hover:block transition-all border border-gray-100">
+                              <a href="/admin-dashboard" id="btn-admin-dashboard" class="hidden block w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600 font-bold text-sm transition-colors border-b border-gray-100">Dashboard Admin</a>
+                              <button type="button" id="btn-logout-dropdown" class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 font-bold text-sm transition-colors">Logout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Main Section -->
-    <section class="relative min-h-[90vh] py-12 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1555848960-8c201726dd7d?q=80&w=2070&auto=format&fit=crop');">
-        <!-- Dark Overlay -->
-        <div class="absolute inset-0 bg-black/60"></div>
-        
+    <main class="relative min-h-[90vh] py-12 bg-white">
         <div class="relative z-10 max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header & Search -->
-            <div class="flex flex-col md:flex-row items-center justify-between mb-12 relative w-full pt-4">
-                <div class="w-full flex justify-center md:absolute md:inset-0 md:pointer-events-none items-center">
-                    <h1 class="text-3xl md:text-5xl font-bold text-white tracking-wide shadow-black drop-shadow-md">Welcome To Indonesia</h1>
+            <div class="flex flex-col items-center justify-between mb-12 relative w-full pt-4">
+                <div class="w-full flex justify-center items-center mb-8">
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 tracking-wide drop-shadow-sm">Welcome To Indonesia</h1>
                 </div>
-                <div class="mt-6 md:mt-0 w-full md:w-auto relative z-20 ml-auto flex justify-end">
-                    <div class="relative w-64 md:w-80">
-                        <input type="text" placeholder="Search" id="searchInput" class="w-full bg-[#d6d6a8] text-[#3e2723] rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-white/50 font-medium">
+                <div class="w-full relative z-20 flex justify-center md:justify-end">
+                    <div class="relative w-full md:w-80">
+                        <input type="text" placeholder="Cari destinasi..." id="searchInput" class="w-full bg-gray-100 text-gray-800 rounded-full px-6 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#819E4A] font-medium shadow-sm transition-shadow">
                     </div>
                 </div>
             </div>
 
             <!-- Destinations Grid -->
-            <div id="destinations-grid" class="flex flex-wrap justify-center gap-4 lg:gap-6">
+            <div id="destinations-grid" class="flex flex-wrap justify-center gap-6 lg:gap-8">
                 <!-- Loading State -->
-                <div class="w-full text-center text-white text-xl py-10">
+                <div class="w-full text-center text-gray-600 text-xl py-10">
                     Memuat destinasi...
                 </div>
             </div>
         </div>
-    </section>
+    </main>
     </div>
 
     <!-- Supabase Logic -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Logout Confirm Modal -->
-<div id="logout-confirm-modal" class="fixed inset-0 z-[110] flex items-center justify-center hidden bg-black/60 backdrop-blur-sm transition-opacity">
-    <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden text-center relative p-6">
-        <div class="mb-4 text-red-500 flex justify-center">
-            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-        </div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2">Konfirmasi Logout</h3>
-        <p class="text-sm text-gray-600 mb-6">Apakah kamu yakin ingin keluar dari akun ini?</p>
-        <div class="flex flex-col space-y-3">
-            <button type="button" id="btn-confirm-logout" class="w-full py-3 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 transition-colors shadow-md">Ya, Keluar</button>
-            <button type="button" id="btn-cancel-logout" class="w-full py-3 bg-gray-100 text-gray-700 rounded-lg font-bold hover:bg-gray-200 transition-colors">Batal</button>
-        </div>
-    </div>
-</div>
+    
 
     <script>
-      const SUPABASE_URL = @json(env('SUPABASE_URL', ''));
-      const SUPABASE_ANON_KEY = @json(env('SUPABASE_ANON_KEY', ''));
+      const SUPABASE_URL = @json(config('services.supabase.url'));
+      const SUPABASE_ANON_KEY = @json(config('services.supabase.key'));
 
       let supabaseClient = null;
 
       if (window.supabase) {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
+        }
 
-      const logoutButton = document.getElementById('btn-logout');
-      const loginButton = document.getElementById('btn-login');
+        const btnLogoutDropdown = document.getElementById('btn-logout-dropdown');
+        const authButtons = document.getElementById('auth-buttons');
+        const userProfile = document.getElementById('user-profile');
+        
+        async function checkSession() {
+            if (!supabaseClient) return;
+            const { data, error } = await supabaseClient.auth.getSession();
+            if(!error && data && data.session && data.session.user) {
+                if(authButtons) authButtons.classList.add('hidden');
+                if(userProfile) userProfile.classList.remove('hidden');
+                
+                const meta = data.session.user.user_metadata || {};
+                const name = meta.full_name || data.session.user.email.split('@')[0];
+                const shortName = name.split(' ')[0];
+                
+                
+                const welcomeText = document.getElementById('welcome-text');
+                const userAvatar = document.getElementById('user-avatar');
+                if(welcomeText) welcomeText.textContent = `Welcome "${shortName}"`;
+                if(userAvatar) userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
 
-      async function checkSession() {
-        if (!supabaseClient) return;
+                // Admin check
+                const { data: roleData } = await supabaseClient
+                    .from('users')
+                    .select('role')
+                    .eq('email', data.session.user.email)
+                    .maybeSingle();
+                
+                if(roleData && roleData.role === 'admin') {
+                    const btnAdmin = document.getElementById('btn-admin-dashboard');
+                    if(btnAdmin) btnAdmin.classList.remove('hidden');
+                }
 
-        const { data, error } = await supabaseClient.auth.getSession();
+            }
+        }
 
-        if (error || !data.session) return; 
+        if (btnLogoutDropdown) {
+            btnLogoutDropdown.addEventListener('click', async () => {
+                if(!supabaseClient) return;
+                btnLogoutDropdown.textContent = 'Logout...';
+                await supabaseClient.auth.signOut();
+                window.location.reload();
+            });
+        }
 
-        const user = data.session.user;
-        logoutButton.classList.remove('hidden');
-        loginButton.classList.add('hidden');
-      }
-
-            // Logout Modal Logic
-      const logoutModal = document.getElementById('logout-confirm-modal');
-      const btnConfirmLogout = document.getElementById('btn-confirm-logout');
-      const btnCancelLogout = document.getElementById('btn-cancel-logout');
-
-      if (logoutButton) {
-          logoutButton.addEventListener('click', () => {
-              if (logoutModal) {
-                  logoutModal.classList.remove('hidden');
-                  document.body.classList.add('overflow-hidden');
-              }
-          });
-      }
-
-      if (btnCancelLogout) {
-          btnCancelLogout.addEventListener('click', () => {
-              logoutModal.classList.add('hidden');
-              document.body.classList.remove('overflow-hidden');
-          });
-      }
-
-      if (btnConfirmLogout) {
-          btnConfirmLogout.addEventListener('click', async () => {
-              if (!supabaseClient) return;
-              btnConfirmLogout.textContent = 'Memproses...';
-              btnConfirmLogout.disabled = true;
-              await supabaseClient.auth.signOut();
-              window.location.reload();
-          });
-      }
-
-      checkSession();
+        checkSession();
 
       const destinationsGrid = document.getElementById('destinations-grid');
       const searchInput = document.getElementById('searchInput');
@@ -164,9 +163,9 @@
 
       function renderDestinations(destinationsToRender) {
         if (destinationsToRender.length === 0) {
-            destinationsGrid.innerHTML = '<div class="w-full text-center text-white py-10 text-xl drop-shadow-md">Tidak ada data destinasi ditemukan.</div>';
+            destinationsGrid.innerHTML = '<div class="w-full text-center text-gray-600 py-10 text-xl">Tidak ada destinasi yang cocok.</div>';
             return;
-          }
+        }
 
           destinationsGrid.innerHTML = destinationsToRender.map(dest => {
             let imageUrl = dest.thumbnail;
@@ -181,7 +180,7 @@
                   <img src="${imageUrl}" alt="${dest.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[600ms]">
                   <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                   <div class="absolute bottom-5 left-0 w-full text-center px-4">
-                      <h3 class="text-white font-bold text-lg md:text-xl drop-shadow-md leading-tight">${dest.name}</h3>
+                      <h3 class="text-white font-bold text-lg md:text-xl drop-shadow-md leading-tight line-clamp-2" title="${dest.name}">${dest.name}</h3>
                   </div>
               </a>
             `;
@@ -200,6 +199,7 @@
     </script>
 </body>
 </html>
+
 
 
 

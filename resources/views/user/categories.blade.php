@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artikel - INDETA</title>
+    <title>Categories - INDETA</title>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden">
@@ -20,9 +20,9 @@
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="/index.html" class="nav-home text-white hover:text-gray-200 font-semibold transition-colors">Home</a>
                     <a href="/destinasi" class="nav-destinasi text-white hover:text-gray-200 font-semibold transition-colors">Destination</a>
-                    <a href="/categories" class="nav-categories text-white hover:text-gray-200 font-semibold transition-colors">Categories</a>
+                    <a href="/categories" class="px-5 py-2 bg-black/20 rounded-[30px] text-white font-bold transition-colors">Categories</a>
                     <a href="/product" class="nav-product text-white hover:text-gray-200 font-semibold transition-colors">Product</a>
-                    <a href="/artikel" class="px-5 py-2 bg-black/20 rounded-[30px] text-white font-bold transition-colors">Article</a>
+                    <a href="/artikel" class="nav-artikel text-white hover:text-gray-200 font-semibold transition-colors">Article</a>
                     <a href="#" class="nav-about text-white hover:text-gray-200 font-semibold transition-colors">About Us</a>
                 </nav>
 
@@ -55,20 +55,20 @@
             <!-- Header & Search -->
             <div class="flex flex-col items-center justify-between mb-12 relative w-full pt-4">
                 <div class="w-full flex justify-center items-center mb-8">
-                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 tracking-wide drop-shadow-sm">Artikel</h1>
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 tracking-wide drop-shadow-sm">Kategori Destinasi</h1>
                 </div>
                 <div class="w-full relative z-20 flex justify-center md:justify-end">
                     <div class="relative w-full md:w-80">
-                        <input type="text" placeholder="Cari artikel..." id="searchInput" class="w-full bg-gray-100 text-gray-800 rounded-full px-6 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#819E4A] font-medium shadow-sm transition-shadow">
+                        <input type="text" placeholder="Cari kategori..." id="searchInput" class="w-full bg-gray-100 text-gray-800 rounded-full px-6 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#819E4A] font-medium shadow-sm transition-shadow">
                     </div>
                 </div>
             </div>
 
-            <!-- Destinations Grid -->
-            <div id="articles-grid" class="flex flex-wrap justify-center gap-6 md:gap-8 px-2 md:px-0">
+            <!-- Categories Grid -->
+            <div id="categories-grid" class="flex flex-wrap justify-center gap-6 lg:gap-8">
                 <!-- Loading State -->
                 <div class="w-full text-center text-gray-600 text-xl py-10">
-                    Memuat artikel...
+                    Memuat kategori...
                 </div>
             </div>
         </div>
@@ -77,16 +77,14 @@
 
     <!-- Supabase Logic -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-
     <script>
-      const SUPABASE_URL = @json(config('services.supabase.url'));
-      const SUPABASE_ANON_KEY = @json(config('services.supabase.key'));
+        const SUPABASE_URL = @json(config('services.supabase.url'));
+        const SUPABASE_ANON_KEY = @json(config('services.supabase.key'));
 
-      let supabaseClient = null;
+        let supabaseClient = null;
 
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         }
 
         const btnLogoutDropdown = document.getElementById('btn-logout-dropdown');
@@ -104,13 +102,11 @@
                 const name = meta.full_name || data.session.user.email.split('@')[0];
                 const shortName = name.split(' ')[0];
                 
-                
                 const welcomeText = document.getElementById('welcome-text');
                 const userAvatar = document.getElementById('user-avatar');
                 if(welcomeText) welcomeText.textContent = `Welcome "${shortName}"`;
                 if(userAvatar) userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
 
-                // Admin check
                 const { data: roleData } = await supabaseClient
                     .from('users')
                     .select('role')
@@ -121,7 +117,6 @@
                     const btnAdmin = document.getElementById('btn-admin-dashboard');
                     if(btnAdmin) btnAdmin.classList.remove('hidden');
                 }
-
             }
         }
 
@@ -136,73 +131,67 @@
 
         checkSession();
 
-      const destinationsGrid = document.getElementById('articles-grid');
-      const searchInput = document.getElementById('searchInput');
-      let allArticles = [];
+        const categoriesGrid = document.getElementById('categories-grid');
+        const searchInput = document.getElementById('searchInput');
+        let allCategories = [];
 
-      async function fetchArticles() {
-        if (!supabaseClient) {
-          destinationsGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Koneksi database gagal.</div>';
-          return;
-        }
-        
-        const { data, error } = await supabaseClient
-          .from('articles')
-          .select('*')
-          .order('id', { ascending: true });
+        async function fetchCategories() {
+            if (!supabaseClient) {
+                categoriesGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Koneksi database gagal.</div>';
+                return;
+            }
+            
+            const { data, error } = await supabaseClient
+                .from('categories')
+                .select('id, name, slug, description, image_url')
+                .order('name', { ascending: true });
 
-        if (error) {
-          console.error(error);
-          destinationsGrid.innerHTML = '<div class="w-full text-center text-red-500 bg-white/10 py-4 rounded-lg">Gagal memuat data artikel.</div>';
-          return;
-        }
-
-        allArticles = data || [];
-        renderArticles(allArticles);
-      }
-
-      function renderArticles(destinationsToRender) {
-        if (destinationsToRender.length === 0) {
-            destinationsGrid.innerHTML = '<div class="w-full text-center text-gray-600 py-10 text-xl">Tidak ada artikel yang cocok.</div>';
-            return;
-        }
-
-          destinationsGrid.innerHTML = destinationsToRender.map(dest => {
-            let imageUrl = dest.thumbnail;
-            if (imageUrl && !imageUrl.startsWith('http')) {
-               imageUrl = `${SUPABASE_URL}/storage/v1/object/public/articles/${imageUrl}`;
-            } else if (!imageUrl) {
-               imageUrl = 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=800&auto=format&fit=crop'; // fallback
+            if (error) {
+                console.error(error);
+                categoriesGrid.innerHTML = '<div class="w-full text-center text-red-500 bg-white/10 py-4 rounded-lg">Gagal memuat data kategori.</div>';
+                return;
             }
 
-            return `
-              <a href="/artikel/${dest.slug}" class="rounded-2xl w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.67rem)] lg:w-[calc(20%-1.2rem)] relative aspect-square md:aspect-[4/5] bg-gray-200 overflow-hidden shadow-lg group cursor-pointer hover:-translate-y-1 transition-transform duration-300 block">
-                  <img src="${imageUrl}" alt="${dest.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[600ms]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                  <div class="absolute bottom-5 left-0 w-full text-left px-4">
-                      <h3 class="text-white font-bold text-lg md:text-xl drop-shadow-md leading-tight line-clamp-2" title="${dest.title}">${dest.title}</h3>
-                  </div>
-              </a>
-            `;
-        }).join('');
-      }
+            allCategories = data || [];
+            renderCategories(allCategories);
+        }
 
-      searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const filtered = allArticles.filter(d => 
-          d.title.toLowerCase().includes(searchTerm)
-        );
-        renderArticles(filtered);
-      });
+        function renderCategories(categoriesToRender) {
+            if (categoriesToRender.length === 0) {
+                categoriesGrid.innerHTML = '<div class="w-full text-center text-gray-600 py-10 text-xl">Tidak ada kategori yang cocok.</div>';
+                return;
+            }
 
-      fetchArticles();
+            categoriesGrid.innerHTML = categoriesToRender.map(cat => {
+                let imageUrl = cat.image_url;
+                if (imageUrl && !imageUrl.startsWith('http')) {
+                   imageUrl = `${SUPABASE_URL}/storage/v1/object/public/indeta_assets/categories/${imageUrl}`;
+                } else if (!imageUrl) {
+                   imageUrl = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop';
+                }
+
+                return `
+                    <a href="/categories/${cat.slug}" class="rounded-2xl w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.67rem)] lg:w-[calc(20%-1.2rem)] relative aspect-square md:aspect-[4/5] bg-gray-200 overflow-hidden shadow-lg group cursor-pointer hover:-translate-y-1 transition-transform duration-300 block">
+                        <img src="${imageUrl}" alt="${cat.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[600ms]">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-5 left-0 w-full text-center px-4 flex flex-col items-center justify-end">
+                            <h3 class="text-white font-bold text-lg md:text-xl drop-shadow-md leading-tight line-clamp-2" title="${cat.name}">${cat.name}</h3>
+                            <p class="text-xs text-white/80 line-clamp-2 mt-1">${cat.description || ''}</p>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = allCategories.filter(c => 
+                c.name.toLowerCase().includes(searchTerm)
+            );
+            renderCategories(filtered);
+        });
+
+        fetchCategories();
     </script>
 </body>
 </html>
-
-
-
-
-
-
-

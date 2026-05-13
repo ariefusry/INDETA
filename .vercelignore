@@ -13,3 +13,8 @@
 # PENTING: Abaikan entry point asli Laravel 
 # Supaya tidak bentrok dengan api/index.php
 /public/index.php
+# Abaikan cache package lokal agar Vercel mendeteksi environment production
+/bootstrap/cache/*.php
+
+# Paksa upload folder build Vite meskipun ada di .gitignore
+!/public/build

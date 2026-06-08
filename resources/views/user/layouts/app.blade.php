@@ -33,11 +33,11 @@
                 <!-- Navigation -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="/" class="px-5 py-2 {{ request()->is('/') ? 'bg-black/20 rounded-[30px]' : '' }} text-white font-bold transition-colors">Home</a>
-                    <a href="/destinasi" class="text-white hover:text-gray-200 font-semibold transition-colors {{ request()->is('destinasi*') ? 'underline underline-offset-8' : '' }}">Destination</a>
-                    <a href="/categories" class="text-white hover:text-gray-200 font-semibold transition-colors {{ request()->is('categories*') ? 'underline underline-offset-8' : '' }}">Categories</a>
-                    <a href="/product" class="text-white hover:text-gray-200 font-semibold transition-colors {{ request()->is('product*') ? 'underline underline-offset-8' : '' }}">Product</a>
-                    <a href="/artikel" class="text-white hover:text-gray-200 font-semibold transition-colors {{ request()->is('artikel*') ? 'underline underline-offset-8' : '' }}">Article</a>
-                    <a href="/about" class="text-white hover:text-gray-200 font-semibold transition-colors {{ request()->is('about*') ? 'underline underline-offset-8' : '' }}">About Us</a>
+                    <a href="/destinasi" class="px-5 py-2 {{ request()->is('destinasi*') ? 'bg-black/20 rounded-[30px]' : '' }} text-white hover:text-gray-200 font-semibold transition-colors">Destination</a>
+                    <a href="/categories" class="px-5 py-2 {{ request()->is('categories*') ? 'bg-black/20 rounded-[30px]' : '' }} text-white hover:text-gray-200 font-semibold transition-colors">Categories</a>
+                    <a href="/product" class="px-5 py-2 {{ request()->is('product*') ? 'bg-black/20 rounded-[30px]' : '' }} text-white hover:text-gray-200 font-semibold transition-colors">Product</a>
+                    <a href="/artikel" class="px-5 py-2 {{ request()->is('artikel*') ? 'bg-black/20 rounded-[30px]' : '' }} text-white hover:text-gray-200 font-semibold transition-colors">Article</a>
+                    <a href="/about" class="px-5 py-2 {{ request()->is('about*') ? 'bg-black/20 rounded-[30px]' : '' }} text-white hover:text-gray-200 font-semibold transition-colors">About Us</a>
                 </nav>
 
                 <!-- Auth/Profile & Mobile Toggle -->

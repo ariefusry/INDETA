@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="p-8">
 <div id="view-categories" class="block">
 
             <div id="form-container" class="hidden bg-[white] rounded-b-2xl rounded-tr-2xl shadow-xl p-6 md:p-10 border border-[gray-200]/30">
@@ -117,7 +116,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
         </div>
 </div>
 @endsection
@@ -289,12 +287,12 @@ formCat.reset();
                 try {
                     const { error } = await window.supabaseClient.from('categories').delete().eq('id', id);
                     if(error) throw error;
-                    alert('Berhasil dihapus');
+                    window.showToast('Kategori berhasil dihapus!');
                     loadKategoriList();
                     loadDestinationsForCategory();
                 } catch (err) {
                     console.error("Gagal menghapus kategori:", err);
-                    alert('Gagal menghapus: ' + err.message);
+                    window.showToast('Gagal menghapus: ' + err.message, true);
                 }
             });
         };
@@ -308,7 +306,7 @@ formCat.reset();
                     loadAssignList();
                 } catch (err) {
                     console.error("Gagal menghapus tautan:", err);
-                    alert('Gagal menghapus tautan: ' + err.message);
+                    window.showToast('Gagal menghapus tautan: ' + err.message, true);
                 }
             });
         };
@@ -370,6 +368,7 @@ formCat.reset();
                     catAlertBox.className = "block mt-2 p-3 rounded text-sm text-green-700 bg-green-100 font-bold";
                     
                     catAlertBox.textContent = isUpdate ? "Kategori berhasil diupdate!" : "Kategori berhasil dibuat!";
+                    window.showToast(isUpdate ? 'Kategori berhasil diupdate!' : 'Kategori baru berhasil dibuat!');
                     if(isUpdate) btnCancelCat.click();
                     loadKategoriList();
 
@@ -407,6 +406,7 @@ formCat.reset();
                     
                     assignAlertBox.className = "block mt-2 p-3 rounded text-sm text-green-700 bg-green-100 font-bold";
                     assignAlertBox.textContent = "Berhasil menautkan destinasi ke kategori!";
+                    window.showToast('Berhasil menautkan destinasi ke kategori!');
                     formAssign.reset();
                 } catch(e) {
                     assignAlertBox.className = "block mt-2 p-3 rounded text-sm text-red-700 bg-red-100 font-bold";

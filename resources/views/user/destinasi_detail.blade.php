@@ -1,53 +1,8 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinasi Detail - INDETA</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-[#819E4A] shadow-md transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <a href="/index.html" class="flex-shrink-0 flex items-center cursor-pointer z-50">
-                    <img src="{{ asset('images/logo INdeta Fix.png') }}" alt="Logo INdeta" class="h-10 md:h-12 w-auto">
-                </a>
+@extends('user.layouts.app')
 
-                <!-- Navigation -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="/index.html" class="nav-home text-white hover:text-gray-200 font-semibold transition-colors">Home</a>
-                    <a href="/destinasi" class="px-5 py-2 bg-black/20 rounded-[30px] text-white font-bold transition-colors">Destination</a>
-                    <a href="/categories" class="nav-categories text-white hover:text-gray-200 font-semibold transition-colors">Categories</a>
-                    <a href="/product" class="nav-product text-white hover:text-gray-200 font-semibold transition-colors">Product</a>
-                    <a href="/artikel" class="nav-artikel text-white hover:text-gray-200 font-semibold transition-colors">Article</a>
-                    <a href="#" class="nav-about text-white hover:text-gray-200 font-semibold transition-colors">About Us</a>
-                </nav>
+@section('title', 'Destinasi Detail - INDETA')
 
-                <!-- Auth/Profile -->
-                <div class="flex items-center space-x-4">
-                    <div id="auth-buttons">
-                        <a href="/login" id="btn-login" class="px-5 py-2 border-2 border-white text-white hover:bg-white hover:text-[#819E4A] rounded-full font-semibold transition-colors text-sm">Login</a>
-                    </div>
-                    
-                    <div id="user-profile" class="hidden flex flex-col items-center justify-center relative group cursor-pointer z-[100]">
-                        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white mb-1 shadow-sm">
-                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="user-avatar" class="w-full h-full object-cover">
-                        </div>
-                        <span id="welcome-text" class="text-[10px] text-white/90">Welcome "name"</span>
-                        
-                        <!-- Logout Dropdown -->
-                        <div class="absolute top-12 right-0 bg-white text-gray-800 rounded-lg shadow-xl py-2 w-40 hidden group-hover:block transition-all border border-gray-100">
-                              <a href="/admin-dashboard" id="btn-admin-dashboard" class="hidden block w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600 font-bold text-sm transition-colors border-b border-gray-100">Dashboard Admin</a>
-                              <button type="button" id="btn-logout-dropdown" class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 font-bold text-sm transition-colors">Logout</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+@section('content')
 
     <!-- Main Section -->
     <main class="flex-1 bg-white text-gray-800">
@@ -63,15 +18,14 @@
                     <span id="breadcrumb-text" class="text-sm md:text-base font-semibold tracking-wide text-gray-500">Destinasi / ...</span>
                 </div>
                 
-                                <!-- Center Title -->
+                <!-- Center Title -->
                 <div class="flex-2 flex justify-center w-full md:w-auto text-center">       
                     <h1 id="page-title" class="text-2xl md:text-4xl font-bold tracking-wider text-gray-900">Memuat...</h1>
                 </div>
                 
                 <!-- Right Spacer -->
                 <div class="hidden md:block flex-1"></div>
-
-                
+            </div>
         </div>
 
         <!-- Content Box -->
@@ -109,18 +63,37 @@
                                 <span class="text-xl leading-none font-bold toggle-icon">+</span>
                             </button>
                             <div id="content-jadwal" class="accordion-content hidden px-6 py-4 text-gray-700 text-sm md:text-base">
-                                <p class="italic text-gray-500">Informasi jadwal & fasilitas belum tersedia.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                                            <svg class="w-5 h-5 mr-2 text-[#819E4A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            Jadwal Operasional
+                                        </h4>
+                                        <div id="schedule-text" class="whitespace-pre-line text-gray-600" style="white-space: pre-line;">
+                                            <p class="italic text-gray-500">Informasi jadwal belum tersedia.</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                                            <svg class="w-5 h-5 mr-2 text-[#819E4A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                            Fasilitas
+                                        </h4>
+                                        <div id="facilities-text" class="whitespace-pre-line text-gray-600" style="white-space: pre-line;">
+                                            <p class="italic text-gray-500">Informasi fasilitas belum tersedia.</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Link Sosial Media & Maps -->
-                        <div class="accordion-item flex-col hidden" id="maps-header">
+                        <div class="accordion-item" id="maps-header">
                             <button class="accordion-header w-full flex justify-between items-center bg-[#819E4A] hover:bg-[#6c853d] text-white px-6 py-3 rounded-full font-bold transition-colors shadow-sm outline-none cursor-pointer" onclick="toggleAccordion('content-maps', this)">
                                 <span>&#8226; Link Sosial Media & Maps</span>
                                 <span class="text-xl leading-none font-bold toggle-icon">+</span>
                             </button>
                             <div id="content-maps" class="accordion-content hidden px-6 py-4 text-gray-700 text-sm md:text-base space-y-2">
-                                <div id="maps-container"></div>
+                                <div id="maps-container"><p class="text-gray-500 italic">Belum ada link sosial media atau lokasi.</p></div>
                             </div>
                         </div>
 
@@ -146,47 +119,51 @@
                                 <!-- Add Review Section Button -->
                                 <div class="mt-6 pt-4 border-t border-gray-200 flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-sm">
                                     <div>
-                                        <h4 class="font-bold text-gray-800 text-base">Punya Pengalaman Menarik?</h4>
-                                        <p class="text-xs text-gray-600 mt-1">Beritahu pengunjung lain tentang pengalaman serumu di sini!</p>
+                                        <h4 id="review-cta-title" class="font-bold text-gray-800 text-base">Punya Pengalaman Menarik?</h4>
+                                        <p id="review-cta-subtitle" class="text-xs text-gray-600 mt-1">Beritahu pengunjung lain tentang pengalaman serumu di sini!</p>
                                     </div>
                                     <button type="button" id="btn-open-review" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-sm flex items-center space-x-2">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                                        <span>Tulis Ulasan</span>
+                                        <span id="btn-open-review-text">Tulis Ulasan</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Prize & Paket Wisata -->
-                        <div class="accordion-item flex-col hidden" id="tour-header">
+                        <div class="accordion-item" id="tour-header">
                             <button class="accordion-header w-full flex justify-between items-center bg-[#819E4A] hover:bg-[#6c853d] text-white px-6 py-3 rounded-full font-bold transition-colors shadow-sm outline-none cursor-pointer" onclick="toggleAccordion('content-tour', this)">
                                 <span>&#8226; Prize & Paket Wisata</span>
                                 <span class="text-xl leading-none font-bold toggle-icon">+</span>
                             </button>
                             <div id="content-tour" class="accordion-content hidden px-6 py-4 text-gray-700 text-sm md:text-base">
-                                <div id="tour-container" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+                                <div id="tour-container" class="flex flex-wrap justify-center gap-4 md:gap-6">
+                                    <p class="col-span-full text-center text-gray-500 italic">Belum ada paket wisata.</p>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Produk UMKM Lokal -->
-                        <div class="accordion-item flex-col hidden" id="umkm-header">
+                        <div class="accordion-item" id="umkm-header">
                             <button class="accordion-header w-full flex justify-between items-center bg-[#819E4A] hover:bg-[#6c853d] text-white px-6 py-3 rounded-full font-bold transition-colors shadow-sm outline-none cursor-pointer" onclick="toggleAccordion('content-umkm', this)">
                                 <span>&#8226; Produk UMKM Lokal</span>
                                 <span class="text-xl leading-none font-bold toggle-icon">+</span>
                             </button>
                             <div id="content-umkm" class="accordion-content hidden px-6 py-4 text-gray-700 text-sm md:text-base">
-                                <div id="umkm-container" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+                                <div id="umkm-container" class="flex flex-wrap justify-center gap-4 md:gap-6">
+                                    <p class="col-span-full text-center text-gray-500 italic">Belum ada produk UMKM.</p>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Detail Kontak Reservasi -->
-                        <div class="accordion-item flex-col hidden" id="contact-header">
+                        <div class="accordion-item" id="contact-header">
                             <button class="accordion-header w-full flex justify-between items-center bg-[#819E4A] hover:bg-[#6c853d] text-white px-6 py-3 rounded-full font-bold transition-colors shadow-sm outline-none cursor-pointer" onclick="toggleAccordion('content-contact', this)">
                                 <span>&#8226; Detail Kontak Reservasi</span>
                                 <span class="text-xl leading-none font-bold toggle-icon">+</span>
                             </button>
                             <div id="content-contact" class="accordion-content hidden px-6 py-4 text-gray-700 text-sm md:text-base">
-                                <p id="contact-text" class="leading-relaxed"></p>
+                                <p id="contact-text" class="leading-relaxed text-gray-500 italic">Informasi kontak belum tersedia.</p>
                             </div>
                         </div>
 
@@ -237,6 +214,11 @@
                 </div>
                 <form id="form-review" class="space-y-5">
                     <input type="hidden" id="dest-id" value="">
+                    <input type="hidden" id="existing-review-id" value="">
+                    <!-- Info banner for editing -->
+                    <div id="review-edit-banner" class="hidden bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-lg text-sm">
+                        <span class="font-bold">📝 Kamu sudah pernah memberikan ulasan.</span> Perbarui rating dan komentar kamu di bawah ini.
+                    </div>
                     <!-- Star Rating -->
                     <div class="text-center">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Pilih Rating Bintang</label>
@@ -261,8 +243,6 @@
         </div>
     </div>
 
-    
-
 <!-- Item Detail Modal (Tour/UMKM) -->
 <div id="item-detail-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden bg-black/60 backdrop-blur-sm transition-opacity">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
@@ -274,7 +254,11 @@
         </div>
         <div class="p-6 overflow-y-auto">
             <h3 id="detail-modal-title" class="text-2xl font-bold text-gray-800 mb-2"></h3>
-            <p id="detail-modal-price" class="text-lg font-semibold text-emerald-600 mb-4"></p>
+            <p id="detail-modal-price" class="text-lg font-semibold text-emerald-600 mb-3"></p>
+            <div id="detail-modal-pricelist" class="hidden mb-4">
+                <h4 class="text-sm font-bold text-gray-600 mb-2">Daftar Harga:</h4>
+                <ul id="detail-modal-pricelist-items" class="space-y-1 text-sm"></ul>
+            </div>
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                 <p id="detail-modal-desc" class="text-gray-700 text-sm whitespace-pre-wrap leading-relaxed"></p>
             </div>
@@ -282,536 +266,474 @@
     </div>
 </div>
 
-    <!-- Passing PHP slug to JS -->
-    <script>
-      const CURRENT_SLUG = "{{ $slug }}";
-
-      function toggleAccordion(contentId, button) {
-          const content = document.getElementById(contentId);
-          const icon = button.querySelector('.toggle-icon');
-          
-          if (content.classList.contains('hidden')) {
-              content.classList.remove('hidden');
-              icon.textContent = '-';
-          } else {
-              content.classList.add('hidden');
-              icon.textContent = '+';
-          }
+<!-- User Toast Notification -->
+<div id="user-toast" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-all duration-300">
+    <div id="user-toast-box" class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-8 transform transition-all scale-95 opacity-0 duration-300 border border-gray-100 text-center">
+        <div id="user-toast-icon-container" class="flex items-center justify-center w-20 h-20 mx-auto rounded-full mb-5">
+            <svg id="user-toast-icon-success" class="w-10 h-10 text-green-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <svg id="user-toast-icon-error" class="w-10 h-10 text-red-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </div>
+        <h3 id="user-toast-title" class="text-xl font-bold text-gray-900 mb-2">Berhasil!</h3>
+        <p id="user-toast-message" class="text-gray-500 text-sm leading-relaxed"></p>
+    </div>
+</div>
+<script>
+  function toggleAccordion(contentId, button) {
+      const content = document.getElementById(contentId);
+      const icon = button.querySelector('.toggle-icon');
+      if (content.classList.contains('hidden')) {
+          content.classList.remove('hidden');
+          icon.textContent = '-';
+      } else {
+          content.classList.add('hidden');
+          icon.textContent = '+';
       }
-    </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-      const SUPABASE_URL = @json(config('services.supabase.url'));
-      const SUPABASE_ANON_KEY = @json(config('services.supabase.key'));
+  }
+</script>
+@endsection
 
-      let supabaseClient = null;
-      let currentDestinationId = null;
-      let currentUser = null;
+@section('scripts')
+<script>
+    const supabaseClient = window.supabaseClient;
+    // Read currentUser dynamically since checkSession() is async and may not have finished yet
+    function getCurrentUser() { return window.currentUser; }
+    const CURRENT_SLUG = "{{ $slug }}";
+    let currentDestinationId = null;
+    let existingReviewId = null; // Track if user already reviewed this destination
 
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        }
-
-        const btnLogoutDropdown = document.getElementById('btn-logout-dropdown');
-        const authButtons = document.getElementById('auth-buttons');
-        const userProfile = document.getElementById('user-profile');
-        
-        async function checkSession() {
-            if (!supabaseClient) return;
-            const { data, error } = await supabaseClient.auth.getSession();
-            if(!error && data && data.session && data.session.user) {
-                if(authButtons) authButtons.classList.add('hidden');
-                if(userProfile) userProfile.classList.remove('hidden');
-                
-                const meta = data.session.user.user_metadata || {};
-                const name = meta.full_name || data.session.user.email.split('@')[0];
-                const shortName = name.split(' ')[0];
-                
-                
-                const welcomeText = document.getElementById('welcome-text');
-                const userAvatar = document.getElementById('user-avatar');
-                if(welcomeText) welcomeText.textContent = `Welcome "${shortName}"`;
-                if(userAvatar) userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
-
-                // Admin check
-                const { data: roleData } = await supabaseClient
-                    .from('users')
-                    .select('role')
-                    .eq('email', data.session.user.email)
-                    .maybeSingle();
-                
-                if(roleData && roleData.role === 'admin') {
-                    const btnAdmin = document.getElementById('btn-admin-dashboard');
-                    if(btnAdmin) btnAdmin.classList.remove('hidden');
-                }
-
-            }
-        }
-
-        if (btnLogoutDropdown) {
-            btnLogoutDropdown.addEventListener('click', async () => {
-                if(!supabaseClient) return;
-                btnLogoutDropdown.textContent = 'Logout...';
-                await supabaseClient.auth.signOut();
-                window.location.reload();
-            });
-        }
-
-      
-      
-      
-      
-
-      async function initPage() {
+    async function loadPage() {
         if (!supabaseClient) return;
 
-        // Check authentication
-        const { data: authData } = await supabaseClient.auth.getSession();
-        if (authData && authData.session) {
-            currentUser = authData.session.user;
-            if (authButtons) authButtons.classList.add('hidden');
-            if (userProfile) userProfile.classList.remove('hidden');
-            
-            const meta = currentUser.user_metadata || {};
-            const name = meta.full_name || currentUser.email.split('@')[0];
-            const shortName = name.split(' ')[0];
-            
+        // 1. Welcome Text
+        if (getCurrentUser()) {
+            const meta = getCurrentUser().user_metadata || {};
+            const name = meta.full_name || getCurrentUser().email.split('@')[0];
             const welcomeText = document.getElementById('welcome-text');
             const userAvatar = document.getElementById('user-avatar');
-            if(welcomeText) welcomeText.textContent = 'Welcome "' + shortName + '"';
-            if(userAvatar) userAvatar.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(name) + '&background=random';
+            if (welcomeText) welcomeText.textContent = 'Welcome "' + name.split(' ')[0] + '"';
+            if (userAvatar) userAvatar.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(name) + '&background=random';
         }
 
-        // 2. Fetch Destination Data by Slug
+        // 2. Fetch Destination
         const { data: dests, error } = await supabaseClient
-          .from('destinations')
-          .select('*')
-          .eq('slug', CURRENT_SLUG)
-          .limit(1);
+            .from('destinations')
+            .select('*')
+            .eq('slug', CURRENT_SLUG)
+            .limit(1);
 
         if (error || !dests || dests.length === 0) {
             document.getElementById('page-title').textContent = "Destinasi Tidak Ditemukan";
-            document.getElementById('img-loading').textContent = "Gambar tidak tersedia";
             return;
         }
 
         const dest = dests[0];
         currentDestinationId = dest.id;
+        document.getElementById('dest-id').value = dest.id;
 
         // Update UI
         document.getElementById('page-title').textContent = dest.name;
         document.getElementById('breadcrumb-text').textContent = `Destinasi / ${dest.name}`;
-        document.getElementById('desc-text').textContent = "" + (dest.description || "Tidak ada deskripsi tersedia.");
-        document.getElementById('dest-id').value = dest.id;
+        document.getElementById('desc-text').textContent = dest.description || "Tidak ada deskripsi.";
 
-        // Map & Social Media Link Logic
+        // Schedule & Facilities
+        if (dest.schedule) {
+            document.getElementById('schedule-text').textContent = dest.schedule;
+        }
+        if (dest.facilities) {
+            document.getElementById('facilities-text').textContent = dest.facilities;
+        }
+
+        // Map & Social
         const mapsContainer = document.getElementById('maps-container');
         let linksHtml = '';
-        
         if (dest.gmaps_url) {
-            linksHtml += '<div class="flex items-start mt-2"><svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-[2px] mr-2 shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg><a href="' + dest.gmaps_url + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-bold hover:underline text-sm md:text-base leading-relaxed">Peta Lokasi ' + dest.name + ' di Google Maps</a></div>';
+            linksHtml += `<div class="flex items-start mt-2"><svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-[2px] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg><a href="${dest.gmaps_url}" target="_blank" class="text-blue-600 font-bold hover:underline text-sm md:text-base">Google Maps</a></div>`;
         }
-
-        if (dest.social_media && dest.social_media.url) {
-            linksHtml += '<div class="flex items-start mt-2"><svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-[2px] mr-2 shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg><a href="' + dest.social_media.url + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-bold hover:underline text-sm md:text-base leading-relaxed">Kunjungi Sosial Media Resmi ' + dest.name + '</a></div>';
+        if (dest.social_media?.url) {
+            linksHtml += `<div class="flex items-start mt-2"><svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-[2px] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg><a href="${dest.social_media.url}" target="_blank" class="text-blue-600 font-bold hover:underline text-sm md:text-base">Sosial Media</a></div>`;
         }
-
-        if (linksHtml !== '') {
+        if (linksHtml) {
             document.getElementById('maps-header').classList.remove('hidden');
             mapsContainer.innerHTML = linksHtml;
         }
 
-        // Contact Detail
+        // Contact
         if (dest.contact_details) {
-            document.getElementById('contact-header').classList.remove('hidden');
-            document.getElementById('contact-text').textContent = dest.contact_details;
+            const contactP = document.getElementById('contact-text');
+            contactP.textContent = dest.contact_details;
+            contactP.classList.remove('text-gray-500', 'italic');
         }
 
-        // Tour Packages Logic
-        const { data: packagesData, error: errPkg } = await supabaseClient
-            .from('tour_packages')
-            .select('*')
-            .eq('destination_id', dest.id);
-
-        const th = document.getElementById('tour-header');
-        th.classList.remove('hidden');
-        th.classList.add('flex');
-
-        if (packagesData && packagesData.length > 0) {
-            console.log('Fetched Tour Packages:', packagesData);
-            let tourHtml = '';
-            packagesData.forEach(pkg => {
-                let pkgImage = pkg.image_url;
-                if (pkgImage && !pkgImage.startsWith('http')) {
-                    pkgImage = SUPABASE_URL + '/storage/v1/object/public/tour_packages/' + pkgImage;
-                } else if (!pkgImage) {
-                    pkgImage = 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=400&auto=format&fit=crop';
-                }
-                const serializedPkg = encodeURIComponent(JSON.stringify({...pkg, resolvedImage: pkgImage}));
-                tourHtml += `
-                <div class="cursor-pointer hover:shadow-lg transition-transform transform hover:-translate-y-1 bg-white border border-gray-100 rounded-lg overflow-hidden flex flex-col" onclick="showItemDetail('${serializedPkg}')">
-                    <div class="w-full aspect-[3/4] relative">
-                        <img src="${pkgImage}" class="absolute inset-0 w-full h-full object-cover object-center" alt="Poster">
-                    </div>
-                    <div class="p-3 text-center bg-gray-50 flex-1 flex items-center justify-center border-t border-gray-100">
-                        <span class="font-bold text-gray-800 text-sm md:text-md">${pkg.title || 'Paket'}</span>
-                    </div>
-                </div>
-                `;
-            });
-            document.getElementById('tour-container').innerHTML = tourHtml;
-        } else {
-            document.getElementById('tour-container').innerHTML = '<p class="col-span-2 md:col-span-3 text-center text-gray-500 italic py-4">Belum ada data paket wisata untuk destinasi ini.</p>';
-        }
-
-        // UMKM Lokal
-        const { data: umkmData, error: errUmkm } = await supabaseClient
-            .from('umkm_products')
-            .select('*')
-            .eq('destination_id', dest.id);
-
-        const uh = document.getElementById('umkm-header');
-        uh.classList.remove('hidden');
-        uh.classList.add('flex');
-
-        if (umkmData && umkmData.length > 0) {
-            let umkmHtml = '';
-            umkmData.forEach(prod => {
-                let pImage = prod.image_url;
-                if (pImage && !pImage.startsWith('http')) {
-                    pImage = SUPABASE_URL + '/storage/v1/object/public/umkm_products/' + pImage;
-                } else if (!pImage) {
-                    pImage = 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400&auto=format&fit=crop';
-                }
-                const serializedProd = encodeURIComponent(JSON.stringify({...prod, title: prod.name, resolvedImage: pImage}));
-                umkmHtml += `
-                <div class="cursor-pointer hover:shadow-lg transition-transform transform hover:-translate-y-1 bg-white border border-gray-100 rounded-lg overflow-hidden flex flex-col" onclick="showItemDetail('${serializedProd}')">
-                    <img src="${pImage}" class="w-full h-32 md:h-40 object-cover" alt="Image">
-                    <div class="p-3 text-center bg-gray-50 flex-1 flex items-center justify-center">
-                        <span class="font-bold text-gray-800 text-sm md:text-md">${prod.name || 'Produk'}</span>
-                    </div>
-                </div>
-                `;
-            });
-            document.getElementById('umkm-container').innerHTML = umkmHtml;
-        } else {
-            document.getElementById('umkm-container').innerHTML = '<p class="col-span-2 md:col-span-3 text-center text-gray-500 italic py-4">Belum ada data produk UMKM untuk destinasi ini.</p>';
-        }
-
-        // Image Logic
+        // Image
         let imageUrl = dest.thumbnail;
         if (imageUrl && !imageUrl.startsWith('http')) {
-            imageUrl = SUPABASE_URL + '/storage/v1/object/public/destinations/' + imageUrl;
-        } else if (!imageUrl) {
-            imageUrl = 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=800&auto=format&fit=crop';
+            imageUrl = `${window.SUPABASE_URL}/storage/v1/object/public/destinations/${imageUrl}`;
         }
-        
         const imgEl = document.getElementById('dest-image');
-        imgEl.src = imageUrl;
+        imgEl.src = imageUrl || 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=800';
         imgEl.onload = () => {
             imgEl.classList.remove('hidden');
             document.getElementById('img-loading').classList.add('hidden');
         };
 
-        // Fetch & Render Reviews
+        fetchPackages(dest.id);
+        fetchUMKM(dest.id);
         fetchReviews(dest.id);
-      }
+    }
 
-      async function fetchReviews(destId) {
-          const { data: reviews, error } = await supabaseClient
-            .from('reviews')
-            .select('*')
-            .eq('destination_id', destId)
-            .order('created_at', { ascending: false });
-
-          if (error) {
-              console.error("Gagal load review:", error);
-              return;
-          }
-
-          const reviewsList = document.getElementById('reviews-list');
-          const avgStarsContainer = document.getElementById('avg-stars');
-          const avgRatingElem = document.getElementById('avg-rating');
-          const ratingCountElem = document.getElementById('rating-count');
-          const btnShowAll = document.getElementById('btn-show-all-reviews');
-
-          const starSvg = '<svg class="w-4 h-4 text-yellow-400 drop-shadow-sm" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
-          const grayStarSvg = '<svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
-
-          if (!reviews || reviews.length === 0) {
-              if (avgRatingElem) avgRatingElem.textContent = "0.0";
-              if (avgStarsContainer) {
-                  let html = '';
-                  for(let i=0; i<5; i++) html += grayStarSvg;
-                  avgStarsContainer.innerHTML = html;
-              }
-              if (ratingCountElem) ratingCountElem.textContent = "(0 ulasan pengunjung)";
-
-              reviewsList.innerHTML = '<p class="text-gray-500 italic ml-2">Belum ada pengunjung yang mengulas.</p>';
-              if(btnShowAll) btnShowAll.classList.add('hidden');
-              return;
-          }
-
-          // Calc average rating
-          const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);    
-          const avgRatingStr = (totalRating / reviews.length).toFixed(1);
-          const avgRatingNum = Math.round(totalRating / reviews.length);
-          
-          if (avgRatingElem) avgRatingElem.textContent = avgRatingStr;
-          
-          if (avgStarsContainer) {
-              let avgHtml = '';
-              for(let i=0; i<5; i++) {
-                  avgHtml += (i < avgRatingNum) ? starSvg : grayStarSvg;
-              }
-              avgStarsContainer.innerHTML = avgHtml;
-          }
-
-          if (ratingCountElem) ratingCountElem.textContent = `(${reviews.length} ulasan pengunjung)`;
-
-          // Generate HTML helper
-          const generateReviewHtml = (r) => {
-             const safeComment = r.comment ? r.comment.replace(/</g, "&lt;").replace(/>/g, "&gt;") : '';
-             let starsHtml = '<div class="flex space-x-0.5">';
-             for(let i = 0; i < 5; i++) {
-                 starsHtml += i < r.rating ? starSvg : grayStarSvg;
-             }
-             starsHtml += '</div>';
-
-             return `<li class="bg-white/90 backdrop-blur border border-white/40 p-4 rounded-xl shadow-lg ring-1 ring-gray-900/5 mb-3 flex flex-col list-none w-full">
-                <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-emerald-400 text-white flex items-center justify-center font-bold text-sm ring-2 ring-white">${(r.user_name || 'A').charAt(0).toUpperCase()}</div>
-                        <div class="text-gray-800 font-extrabold text-sm tracking-wide mt-0.5">${(r.user_name || 'Pengunjung Anonim').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+    async function fetchPackages(destId) {
+        const { data } = await supabaseClient.from('tour_packages').select('*').eq('destination_id', destId);
+        const container = document.getElementById('tour-container');
+        if (data?.length) {
+            container.innerHTML = data.map(pkg => {
+                let img = pkg.image_url;
+                if (img && !img.startsWith('http')) img = `${window.SUPABASE_URL}/storage/v1/object/public/tour_packages/${img}`;
+                
+                // Build price label
+                let priceLabel = '';
+                if (pkg.price_min && pkg.price_max) {
+                    priceLabel = 'Rp ' + Number(pkg.price_min).toLocaleString('id-ID') + ' - Rp ' + Number(pkg.price_max).toLocaleString('id-ID');
+                } else if (pkg.price_list && Array.isArray(pkg.price_list) && pkg.price_list.length > 0) {
+                    const minP = Math.min(...pkg.price_list.map(p => Number(p.price)).filter(p => !isNaN(p)));
+                    priceLabel = 'Mulai Rp ' + minP.toLocaleString('id-ID');
+                } else if (pkg.price) {
+                    priceLabel = 'Rp ' + Number(pkg.price).toLocaleString('id-ID');
+                }
+                
+                const serialized = encodeURIComponent(JSON.stringify({...pkg, resolvedImage: img}));
+                return `<div class="w-[calc(50%-0.5rem)] sm:w-48 md:w-52 lg:w-56 cursor-pointer hover:shadow-lg transition-transform transform hover:-translate-y-1 bg-white border border-gray-100 rounded-lg overflow-hidden flex flex-col" onclick="showItemDetail('${serialized}')">
+                    <div class="w-full aspect-[4/3] relative"><img src="${img || ''}" class="absolute inset-0 w-full h-full object-cover"></div>
+                    <div class="p-3 text-center bg-gray-50 flex-1 flex flex-col items-center justify-center">
+                        <span class="font-bold text-sm text-gray-800 line-clamp-2">${pkg.title || 'Paket'}</span>
+                        ${priceLabel ? `<span class="text-xs text-emerald-600 font-semibold mt-1">${priceLabel}</span>` : ''}
                     </div>
-                    ${starsHtml}
+                </div>`;
+            }).join('');
+        }
+    }
+
+    async function fetchUMKM(destId) {
+        // UMKM are linked via umkm_destinations junction table
+        const { data: links } = await supabaseClient.from('umkm_destinations').select('umkm_id').eq('destination_id', destId);
+        if (!links || links.length === 0) return;
+        
+        const umkmIds = links.map(l => l.umkm_id);
+        const { data } = await supabaseClient.from('umkm_products').select('*').in('id', umkmIds);
+        const container = document.getElementById('umkm-container');
+        if (data?.length) {
+            container.innerHTML = data.map(prod => {
+                let img = prod.image_url;
+                if (img && !img.startsWith('http')) img = `${window.SUPABASE_URL}/storage/v1/object/public/umkm_products/${img}`;
+                
+                // Build price label
+                let priceLabel = '';
+                if (prod.price_min && prod.price_max) {
+                    priceLabel = 'Rp ' + Number(prod.price_min).toLocaleString('id-ID') + ' - Rp ' + Number(prod.price_max).toLocaleString('id-ID');
+                } else if (prod.price_list && Array.isArray(prod.price_list) && prod.price_list.length > 0) {
+                    const minP = Math.min(...prod.price_list.map(p => Number(p.price)).filter(p => !isNaN(p)));
+                    priceLabel = 'Mulai Rp ' + minP.toLocaleString('id-ID');
+                }
+                
+                const serialized = encodeURIComponent(JSON.stringify({...prod, title: prod.name, resolvedImage: img}));
+                return `<div class="w-[calc(50%-0.5rem)] sm:w-48 md:w-52 lg:w-56 cursor-pointer hover:shadow-lg transition-transform transform hover:-translate-y-1 bg-white border border-gray-100 rounded-lg overflow-hidden flex flex-col" onclick="showItemDetail('${serialized}')">
+                    <div class="w-full aspect-[4/3] relative"><img src="${img || ''}" class="absolute inset-0 w-full h-full object-cover"></div>
+                    <div class="p-3 text-center bg-gray-50 flex-1 flex flex-col items-center justify-center">
+                        <span class="font-bold text-sm text-gray-800 line-clamp-2">${prod.name || 'Produk'}</span>
+                        ${priceLabel ? `<span class="text-xs text-emerald-600 font-semibold mt-1">${priceLabel}</span>` : ''}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+    }
+
+    async function fetchReviews(destId) {
+        const { data: reviews } = await supabaseClient.from('reviews').select('*').eq('destination_id', destId).order('created_at', { ascending: false });
+        if (!reviews?.length) return;
+
+        const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+        const avg = (total / reviews.length).toFixed(1);
+        document.getElementById('avg-rating').textContent = avg;
+        document.getElementById('rating-count').textContent = `(${reviews.length} ulasan pengunjung)`;
+        
+        const starSvg = (active) => `<svg class="w-4 h-4 ${active ? 'text-yellow-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+        
+        let starsHtml = '';
+        for(let i=0; i<5; i++) starsHtml += starSvg(i < Math.round(avg));
+        document.getElementById('avg-stars').innerHTML = starsHtml;
+
+        const genReview = (r) => `
+            <li class="bg-white/90 border border-gray-100 p-4 rounded-xl shadow-sm mb-3 list-none">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">${(r.user_name || 'A').charAt(0).toUpperCase()}</div>
+                        <span class="font-bold text-sm text-gray-800">${r.user_name || 'Anonim'}</span>
+                    </div>
+                    <div class="flex">${[...Array(5)].map((_, i) => starSvg(i < r.rating)).join('')}</div>
                 </div>
-                <p class="text-gray-700 text-sm mt-3 ml-1 break-words">${safeComment}</p> 
-             </li>`;
-          };
+                <p class="text-gray-700 text-sm">${r.comment || ''}</p>
+            </li>`;
+        
+        document.getElementById('reviews-list').innerHTML = reviews.slice(0, 2).map(genReview).join('');
+        document.getElementById('all-reviews-list').innerHTML = reviews.map(genReview).join('');
+        if (reviews.length > 2) document.getElementById('btn-show-all-reviews').classList.remove('hidden');
 
-          // Sort reviews by rating (highest first) for the main view
-          const sortedReviews = [...reviews].sort((a,b) => b.rating - a.rating);
-          
-          // Display top 2 reviews in main view
-          const top2 = sortedReviews.slice(0, 2);
-          reviewsList.innerHTML = top2.map(generateReviewHtml).join("");
+        // Update CTA if user already has a review
+        const user = getCurrentUser();
+        if (user) {
+            const userReview = reviews.find(r => r.user_id === user.id);
+            const ctaTitle = document.getElementById('review-cta-title');
+            const ctaSubtitle = document.getElementById('review-cta-subtitle');
+            const ctaBtnText = document.getElementById('btn-open-review-text');
+            if (userReview) {
+                if (ctaTitle) ctaTitle.textContent = 'Kamu Sudah Memberi Ulasan';
+                if (ctaSubtitle) ctaSubtitle.textContent = 'Ingin memperbarui rating atau komentar? Klik tombol di samping.';
+                if (ctaBtnText) ctaBtnText.textContent = 'Edit Ulasan';
+            } else {
+                if (ctaTitle) ctaTitle.textContent = 'Punya Pengalaman Menarik?';
+                if (ctaSubtitle) ctaSubtitle.textContent = 'Beritahu pengunjung lain tentang pengalaman serumu di sini!';
+                if (ctaBtnText) ctaBtnText.textContent = 'Tulis Ulasan';
+            }
+        }
+    }
 
-          // Display all in modal
-          const allReviewsList = document.getElementById('all-reviews-list');
-          if (allReviewsList) {
-              allReviewsList.innerHTML = sortedReviews.map(generateReviewHtml).join("");
-          }
+    // Modal Events
+    window.showItemDetail = function(data) {
+        const item = JSON.parse(decodeURIComponent(data));
+        document.getElementById('detail-modal-image').src = item.resolvedImage || '';
+        document.getElementById('detail-modal-title').textContent = item.title || item.name;
+        document.getElementById('detail-modal-desc').textContent = item.description || '';
+        
+        // Price list rendering
+        const priceListContainer = document.getElementById('detail-modal-pricelist');
+        const priceListItems = document.getElementById('detail-modal-pricelist-items');
+        const priceEl = document.getElementById('detail-modal-price');
+        
+        if (item.price_list && Array.isArray(item.price_list) && item.price_list.length > 0) {
+            priceListItems.innerHTML = item.price_list.map(p => {
+                const formatted = !isNaN(p.price) ? 'Rp ' + Number(p.price).toLocaleString('id-ID') : p.price;
+                return `<li class="flex justify-between items-center bg-white px-3 py-2 rounded-lg border border-gray-100">
+                    <span class="text-gray-800 font-medium">${p.name || '-'}</span>
+                    <span class="text-emerald-600 font-bold">${formatted}</span>
+                </li>`;
+            }).join('');
+            priceListContainer.classList.remove('hidden');
+            
+            // Show range if available
+            if (item.price_min && item.price_max) {
+                priceEl.textContent = 'Rp ' + Number(item.price_min).toLocaleString('id-ID') + ' — Rp ' + Number(item.price_max).toLocaleString('id-ID');
+            } else {
+                const prices = item.price_list.map(p => Number(p.price)).filter(p => !isNaN(p));
+                if (prices.length > 0) {
+                    const min = Math.min(...prices);
+                    priceEl.textContent = 'Mulai Rp ' + min.toLocaleString('id-ID');
+                } else {
+                    priceEl.textContent = '';
+                }
+            }
+        } else {
+            priceListContainer.classList.add('hidden');
+            if (item.price) {
+                priceEl.textContent = 'Rp ' + Number(item.price).toLocaleString('id-ID');
+            } else {
+                priceEl.textContent = '';
+            }
+        }
+        
+        document.getElementById('item-detail-modal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    };
 
-          if (btnShowAll) {
-              if (reviews.length > 2) {
-                  btnShowAll.classList.remove('hidden');
-              } else {
-                  btnShowAll.classList.add('hidden');
-              }
-          }
-      }
+    document.getElementById('close-item-detail-modal')?.addEventListener('click', () => {
+        document.getElementById('item-detail-modal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    });
 
-      // Item Detail Modal Logic (Tour & UMKM)
-      const itemDetailModal = document.getElementById('item-detail-modal');
-      const closeItemDetailModal = document.getElementById('close-item-detail-modal');
-      
-      if(closeItemDetailModal) {
-          closeItemDetailModal.addEventListener('click', () => {
-              itemDetailModal.classList.add('hidden');
-              document.body.classList.remove('overflow-hidden');
-          });
-      }
+    document.getElementById('btn-open-review')?.addEventListener('click', async () => {
+        if (!getCurrentUser()) return document.getElementById('login-required-modal').classList.remove('hidden');
+        
+        // Check if user already has a review for this destination
+        const btn = document.getElementById('btn-submit-review');
+        const modalTitle = document.querySelector('#review-modal h3');
+        const editBanner = document.getElementById('review-edit-banner');
+        
+        try {
+            const { data: existingReview } = await supabaseClient
+                .from('reviews')
+                .select('*')
+                .eq('destination_id', currentDestinationId)
+                .eq('user_id', getCurrentUser().id)
+                .maybeSingle();
+            
+            if (existingReview) {
+                // Pre-fill form with existing review
+                existingReviewId = existingReview.id;
+                document.getElementById('existing-review-id').value = existingReview.id;
+                document.getElementById('input-rating').value = existingReview.rating;
+                document.getElementById('input-comment').value = existingReview.comment || '';
+                
+                // Update stars visual
+                const stars = document.querySelectorAll('.star-svg');
+                stars.forEach(st => {
+                    st.classList.toggle('text-yellow-400', st.getAttribute('data-val') <= existingReview.rating);
+                    st.classList.toggle('text-gray-300', st.getAttribute('data-val') > existingReview.rating);
+                });
+                
+                // Update UI texts
+                btn.textContent = 'Perbarui Ulasan';
+                if (modalTitle) modalTitle.textContent = 'Perbarui Ulasanmu';
+                if (editBanner) editBanner.classList.remove('hidden');
+            } else {
+                // Fresh review
+                existingReviewId = null;
+                document.getElementById('existing-review-id').value = '';
+                document.getElementById('form-review').reset();
+                document.getElementById('input-rating').value = 0;
+                document.querySelectorAll('.star-svg').forEach(st => {
+                    st.classList.remove('text-yellow-400');
+                    st.classList.add('text-gray-300');
+                });
+                btn.textContent = 'Kirim Ulasan';
+                if (modalTitle) modalTitle.textContent = 'Bagaimana Pengalamanmu?';
+                if (editBanner) editBanner.classList.add('hidden');
+            }
+        } catch (err) {
+            console.error('Error checking existing review:', err);
+            existingReviewId = null;
+        }
+        
+        document.getElementById('review-modal').classList.remove('hidden');
+    });
 
-      window.showItemDetail = function(encodedData) {
-          const item = JSON.parse(decodeURIComponent(encodedData));
-          document.getElementById('detail-modal-image').src = item.resolvedImage;
-          document.getElementById('detail-modal-title').textContent = item.title || item.name;
-          
-          const priceContainer = document.getElementById('detail-modal-price');
-          if (item.price_list && Array.isArray(item.price_list) && item.price_list.length > 0) {
-              priceContainer.innerHTML = '<ul class="list-disc pl-5 my-2 text-sm">' + item.price_list.map(p => `<li><span class="font-bold">${p.name}</span>: Rp ${Number(p.price).toLocaleString('id-ID')}</li>`).join('') + '</ul>';
-          } else if (item.price) {
-              const numPrice = Number(item.price);
-              priceContainer.textContent = 'Rp ' + (!isNaN(numPrice) ? numPrice.toLocaleString('id-ID') : item.price);
-          } else {
-              priceContainer.textContent = '';
-          }
-          
-          document.getElementById('detail-modal-desc').textContent = item.description || 'Tidak ada deskripsi.';
-          
-          itemDetailModal.classList.remove('hidden');
-          document.body.classList.add('overflow-hidden');
-      };
+    // Login-required modal close buttons
+    const closeLoginModal = () => document.getElementById('login-required-modal').classList.add('hidden');
+    document.getElementById('btn-close-login-required')?.addEventListener('click', closeLoginModal);
+    document.getElementById('btn-cancel-login-required')?.addEventListener('click', closeLoginModal);
 
-      // Review Modal & Star Logic
-      const btnShowAllEvt = document.getElementById('btn-show-all-reviews');
-      if(btnShowAllEvt) {
-          btnShowAllEvt.addEventListener('click', () => {
-              document.getElementById('all-reviews-modal').classList.remove('hidden');
-          });
-      }
-      
-      const btnCloseAllEvt = document.getElementById('close-all-reviews-modal');
-      if(btnCloseAllEvt) {
-          btnCloseAllEvt.addEventListener('click', () => {
-              document.getElementById('all-reviews-modal').classList.add('hidden');
-          });
-      }
+    document.getElementById('btn-close-review')?.addEventListener('click', () => {
+        document.getElementById('review-modal').classList.add('hidden');
+    });
 
-// Review Modal & Star Logic
-      const reviewModal = document.getElementById('review-modal');
-      const msgContainer = document.getElementById('review-msg-container');
-      const btnOpenReview = document.getElementById('btn-open-review');
-      const btnCloseReview = document.getElementById('btn-close-review');
-      const ratingInput = document.getElementById('input-rating');
-      const starError = document.getElementById('star-error');
-      const svgs = document.querySelectorAll('.star-svg');
+    // Star Logic
+    const stars = document.querySelectorAll('.star-svg');
+    stars.forEach(s => {
+        s.addEventListener('click', () => {
+            const val = s.getAttribute('data-val');
+            document.getElementById('input-rating').value = val;
+            stars.forEach(st => st.classList.toggle('text-yellow-400', st.getAttribute('data-val') <= val));
+            stars.forEach(st => st.classList.toggle('text-gray-300', st.getAttribute('data-val') > val));
+            document.getElementById('star-error').classList.add('hidden');
+        });
+    });
 
-      const loginModal = document.getElementById('login-required-modal');
-      const closeLoginEls = [document.getElementById('btn-close-login-required'), document.getElementById('btn-cancel-login-required')];
-      
-      if (closeLoginEls[0] && closeLoginEls[1]) {
-          closeLoginEls.forEach(el => el.addEventListener('click', () => {
-              loginModal.classList.add('hidden');
-              document.body.classList.remove('overflow-hidden');
-          }));
-      }
+    document.getElementById('form-review')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const rating = document.getElementById('input-rating').value;
+        if (rating == 0) return document.getElementById('star-error').classList.remove('hidden');
+        
+        const btn = document.getElementById('btn-submit-review');
+        const isUpdate = !!existingReviewId;
+        btn.disabled = true;
+        btn.textContent = isUpdate ? 'Memperbarui...' : 'Mengirim...';
+        
+        let error;
+        const reviewData = {
+            destination_id: currentDestinationId,
+            user_id: getCurrentUser().id,
+            user_name: getCurrentUser().user_metadata?.full_name || getCurrentUser().email.split('@')[0],
+            rating: parseInt(rating),
+            comment: document.getElementById('input-comment').value
+        };
 
-      window.addEventListener('click', (e) => {
-          if (e.target === loginModal) {
-              loginModal.classList.add('hidden');
-              document.body.classList.remove('overflow-hidden');
-          }
-      });
+        if (isUpdate) {
+            // Update existing review
+            const result = await supabaseClient.from('reviews')
+                .update({ rating: reviewData.rating, comment: reviewData.comment, user_name: reviewData.user_name })
+                .eq('id', existingReviewId);
+            error = result.error;
+        } else {
+            // Insert new review
+            const result = await supabaseClient.from('reviews').insert([reviewData]);
+            error = result.error;
+        }
 
-      if (btnOpenReview) {
-          btnOpenReview.addEventListener('click', () => {
-              if (!currentUser) {
-                  loginModal.classList.remove('hidden');
-                  document.body.classList.add('overflow-hidden');
-                  return;
-              }
-              reviewModal.classList.remove('hidden');
-              document.body.classList.add('overflow-hidden');
-          });
-      }
+        btn.disabled = false;
+        btn.textContent = isUpdate ? 'Perbarui Ulasan' : 'Kirim Ulasan';
 
-      if (btnCloseReview) {
-          btnCloseReview.addEventListener('click', () => {
-              reviewModal.classList.add('hidden');
-              document.body.classList.remove('overflow-hidden');
-              msgContainer.classList.add('hidden');
-          });
-      }
-      
-      // Close modal on outside click
-      window.addEventListener('click', (e) => {
-          if (e.target === reviewModal) {
-              reviewModal.classList.add('hidden');
-              document.body.classList.remove('overflow-hidden');
-          }
-      });
+        if (error) {
+            showUserToast('Gagal mengirim ulasan: ' + error.message, true);
+        } else {
+            // Close review modal
+            document.getElementById('review-modal').classList.add('hidden');
+            // Reset state
+            existingReviewId = null;
+            document.getElementById('existing-review-id').value = '';
+            document.getElementById('form-review').reset();
+            document.getElementById('input-rating').value = 0;
+            document.querySelectorAll('.star-svg').forEach(st => {
+                st.classList.remove('text-yellow-400');
+                st.classList.add('text-gray-300');
+            });
+            // Show success toast
+            showUserToast(isUpdate ? 'Ulasan kamu berhasil diperbarui! ✏️' : 'Terima kasih! Ulasan kamu berhasil dikirim 🎉');
+            // Reload reviews without full page reload
+            fetchReviews(currentDestinationId);
+        }
+    });
 
-      function updateStars(val) {
-          svgs.forEach(s => {
-              const sVal = parseInt(s.getAttribute('data-val'));
-              if(sVal <= val) {
-                  s.classList.remove('text-gray-300');
-                  s.classList.add('text-yellow-400');
-              } else {
-                  s.classList.remove('text-yellow-400');
-                  s.classList.add('text-gray-300');
-              }
-          });
-      }
+    // Toast notification for user page
+    function showUserToast(message, isError = false, duration = 2500) {
+        const toast = document.getElementById('user-toast');
+        const box = document.getElementById('user-toast-box');
+        const iconContainer = document.getElementById('user-toast-icon-container');
+        const successIcon = document.getElementById('user-toast-icon-success');
+        const errorIcon = document.getElementById('user-toast-icon-error');
+        const title = document.getElementById('user-toast-title');
+        const msg = document.getElementById('user-toast-message');
 
-      svgs.forEach(svg => {
-          svg.addEventListener('click', function() {
-              const val = parseInt(this.getAttribute('data-val'));
-              ratingInput.value = val;
-              updateStars(val);
-              starError.classList.add('hidden');
-          });
-          
-          svg.addEventListener('mouseenter', function() {
-              const val = parseInt(this.getAttribute('data-val'));
-              updateStars(val);
-          });
-      });
+        if (isError) {
+            iconContainer.className = 'flex items-center justify-center w-20 h-20 mx-auto rounded-full mb-5 bg-red-50';
+            successIcon.classList.add('hidden');
+            errorIcon.classList.remove('hidden');
+            title.textContent = 'Gagal!';
+            title.className = 'text-xl font-bold text-red-700 mb-2';
+        } else {
+            iconContainer.className = 'flex items-center justify-center w-20 h-20 mx-auto rounded-full mb-5 bg-green-50';
+            errorIcon.classList.add('hidden');
+            successIcon.classList.remove('hidden');
+            title.textContent = 'Berhasil!';
+            title.className = 'text-xl font-bold text-green-700 mb-2';
+        }
+        msg.textContent = message;
 
-      document.getElementById('star-rating-container').addEventListener('mouseleave', function() {
-          updateStars(parseInt(ratingInput.value));
-      });
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+            box.classList.remove('scale-95', 'opacity-0');
+        }, 10);
 
-      // Review Submission
-      document.getElementById('form-review').addEventListener('submit', async (e) => {
-          e.preventDefault();
+        setTimeout(() => {
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 300);
+        }, duration);
+    }
 
-          if (!currentUser) return;
-          if (!currentDestinationId) return;
-          
-          const rating = parseInt(ratingInput.value);
-          if(rating === 0) {
-              starError.classList.remove('hidden');
-              return;
-          }
+    window.toggleAccordion = function(contentId, btn) {
+        const content = document.getElementById(contentId);
+        const icon = btn.querySelector('.toggle-icon');
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            icon.textContent = '-';
+        } else {
+            content.classList.add('hidden');
+            icon.textContent = '+';
+        }
+    };
 
-          const btn = document.getElementById('btn-submit-review');
-          btn.disabled = true;
-          btn.textContent = "Mengirim...";
-
-          const comment = document.getElementById('input-comment').value;       
-
-          let userNameLog = currentUser?.user_metadata?.full_name || currentUser?.email?.split('@')[0] || 'Pengunjung';
-          const { error } = await supabaseClient.from('reviews').insert([{
-              destination_id: currentDestinationId,
-              user_id: currentUser.id,
-              user_name: userNameLog,
-              rating: rating,
-              comment: comment
-          }]);
-
-          btn.disabled = false;
-          btn.textContent = "Kirim Ulasan";
-          msgContainer.classList.remove('hidden');
-
-          if (error) {
-              msgContainer.textContent = "Gagal mengirim: " + error.message;
-              msgContainer.className = "mt-4 p-3 rounded-lg text-center font-bold text-sm bg-red-100 text-red-700 block";
-          } else {
-              document.getElementById('input-comment').value = '';
-              ratingInput.value = '0';
-              updateStars(0);
-              
-              msgContainer.textContent = "Ulasan Berhasil Dikirim!";     
-              msgContainer.className = "mt-4 p-3 rounded-lg text-center font-bold text-sm bg-green-100 text-green-700 block";
-
-              // Refresh Review List
-              fetchReviews(currentDestinationId);
-              
-              // auto close modal after 1.5s
-              setTimeout(() => {
-                  reviewModal.classList.add('hidden');
-                  document.body.classList.remove('overflow-hidden');
-                  msgContainer.classList.add('hidden');
-              }, 1500);
-          }
-      });
-initPage();
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
+    document.addEventListener('DOMContentLoaded', loadPage);
+</script>
+@endsection

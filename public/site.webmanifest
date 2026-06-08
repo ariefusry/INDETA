@@ -1,0 +1,39 @@
+{
+  "name": "INDETA - Informasi Desa Wisata",
+  "short_name": "INDETA",
+  "description": "Platform Informasi dan Reservasi Desa Wisata Nusantara",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#819E4A",
+  "theme_color": "#819E4A",
+  "orientation": "portrait",
+  "categories": ["travel", "tourism"],
+  "icons": [
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

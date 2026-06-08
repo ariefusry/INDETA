@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="p-8">
 <div id="view-umkm_products" class="block">
 
             <div id="form-container" class="hidden bg-[white] rounded-b-2xl rounded-tr-2xl shadow-xl p-6 md:p-10 border border-[gray-200]/30">
@@ -33,6 +32,22 @@
                             <textarea id="umkm_desc" rows="4" required class="w-full px-4 py-3 bg-white border border-[gray-200] text-gray-800 rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 focus:border-[#819E4A] shadow-sm outline-none transition-all leading-relaxed"></textarea>
                         </div>
 
+                        <!-- Range Harga (Opsional) -->
+                        <div>
+                            <label class="block text-sm font-bold text-[#6c853d] mb-2">Range Harga (Opsional)</label>
+                            <p class="text-xs text-gray-500 mb-2">Ditampilkan sebagai kisaran harga di halaman publik. Kosongkan jika tidak diperlukan.</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500 mb-1">Harga Minimum (Rp)</label>
+                                    <input type="number" id="umkm_price_min" min="0" placeholder="0" class="w-full px-4 py-2.5 bg-white border border-[gray-200] rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500 mb-1">Harga Maksimum (Rp)</label>
+                                    <input type="number" id="umkm_price_max" min="0" placeholder="0" class="w-full px-4 py-2.5 bg-white border border-[gray-200] rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 outline-none transition-all">
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
                             <label class="block text-sm font-bold text-[#6c853d] mb-2">Upload Gambar UMKM (opsional)</label>
                             <div class="relative flex items-center justify-center w-full">
@@ -57,35 +72,6 @@
                         </div>
                     </form>
                 </div>
-
-                <!-- Mapping Section -->
-                <div class="bg-[gray-100]/30 p-8 rounded-3xl border border-[gray-200]/50 shadow-sm">
-                    <h3 class="text-xl font-bold text-[#6c853d] mb-6 flex items-center">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                        Hubungkan UMKM dengan Destinasi
-                    </h3>
-                    <form id="form-assign-umkm-dest" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end">
-                        <div>
-                            <label class="block text-sm font-bold text-[#6c853d] mb-2">Pilih UMKM</label>
-                            <select id="assign_umkm_id" required class="w-full px-4 py-2.5 bg-white border border-[gray-200] rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 outline-none transition-all">
-                                <option value="" disabled selected>Memuat umkm...</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-[#6c853d] mb-2">Pilih Destinasi</label>
-                            <select id="assign_dest_id" required class="w-full px-4 py-2.5 bg-white border border-[gray-200] rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 outline-none transition-all">
-                                <option value="" disabled selected>Memuat destinasi...</option>
-                            </select>
-                        </div>
-                        <div>
-                            <button type="submit" id="btn-submit-assign" class="px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold w-full transition-all shadow-md shadow-green-100 flex items-center justify-center">
-                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                Tautkan Sekarang
-                            </button>
-                        </div>
-                        <div id="assign-alert-box" class="hidden md:col-span-2 lg:col-span-3 p-3 rounded-lg text-sm mt-2 font-medium"></div>
-                    </form>
-                </div>
             </div>
         </div>
 
@@ -94,8 +80,11 @@
 
         <div id="table-container">
         <div class="mt-12 bg-white rounded-2xl shadow-xl p-6 border border-[gray-200]/30">
-            <div class="flex justify-between items-center mb-6 border-b-2 border-[gray-200]/30 pb-4">
-            <h2 class="text-2xl font-bold text-[#819E4A]">Daftar UMKM</h2>
+            <div class="flex justify-between items-center mb-2 border-b-2 border-[gray-200]/30 pb-4">
+            <div>
+                <h2 class="text-2xl font-bold text-[#819E4A]">Daftar UMKM</h2>
+                <p class="text-xs text-gray-500 mt-1">Setiap destinasi bisa memiliki lebih dari satu UMKM. Tautkan di bagian bawah.</p>
+            </div>
             <button type="button" id="umkm-btn-add-new" class="px-6 py-2 bg-[#819E4A] text-white rounded-lg font-bold hover:bg-[#6c853d] transition-all">+ Tambah UMKM</button>
         </div>
             <div class="overflow-x-auto">
@@ -105,16 +94,47 @@
                             <th class="px-4 py-3">ID</th>
                             <th class="px-4 py-3">Nama UMKM</th>
                             <th class="px-4 py-3">Slug</th>
+                            <th class="px-4 py-3">Range Harga</th>
                             <th class="px-4 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="umkm-table-body" class="divide-y divide-gray-200">
-                        <tr><td colspan="3" class="text-center py-4">Memuat data...</td></tr>
+                        <tr><td colspan="5" class="text-center py-4">Memuat data...</td></tr>
                     </tbody>
                 </table>
             </div>
             
-            <div class="flex flex-col md:flex-row justify-between items-center mt-12 mb-6 border-b-2 border-[gray-200]/30 pb-4">
+            <!-- Mapping Section -->
+            <div class="mt-10 bg-[gray-100]/30 p-6 rounded-2xl border border-[gray-200]/50">
+                <h3 class="text-xl font-bold text-[#6c853d] mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                    Hubungkan UMKM dengan Destinasi
+                </h3>
+                <p class="text-xs text-gray-500 mb-4">Pilih UMKM dan destinasi yang ingin dihubungkan. Satu UMKM bisa ditautkan ke banyak destinasi.</p>
+                <form id="form-assign-umkm-dest" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
+                    <div>
+                        <label class="block text-sm font-bold text-[#6c853d] mb-2">Pilih UMKM</label>
+                        <select id="assign_umkm_id" required class="w-full px-4 py-2.5 bg-white border border-[gray-200] rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 outline-none transition-all">
+                            <option value="" disabled selected>Memuat umkm...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-[#6c853d] mb-2">Pilih Destinasi</label>
+                        <select id="assign_dest_id" required class="w-full px-4 py-2.5 bg-white border border-[gray-200] rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 outline-none transition-all">
+                            <option value="" disabled selected>Memuat destinasi...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" id="btn-submit-assign" class="px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold w-full transition-all shadow-md shadow-green-100 flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Tautkan Sekarang
+                        </button>
+                    </div>
+                    <div id="assign-alert-box" class="hidden md:col-span-2 lg:col-span-3 p-3 rounded-lg text-sm mt-2 font-medium"></div>
+                </form>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center mt-8 mb-6 border-b-2 border-[gray-200]/30 pb-4">
                 <h2 class="text-2xl font-bold text-[#819E4A]">Daftar Tautan Destinasi</h2>
                 <div class="flex items-center space-x-2 mt-4 md:mt-0">
                     <span class="text-sm font-bold text-gray-500">Filter Destinasi:</span>
@@ -137,7 +157,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
         </div>
 </div>
 @endsection
@@ -197,6 +216,8 @@
             btnCancelCat.classList.remove('hidden');
             formCat.reset();
             document.getElementById('umkm_id').value = '';
+            document.getElementById('umkm_price_min').value = '';
+            document.getElementById('umkm_price_max').value = '';
             formTitleCat.textContent = '1. Buat UMKM Baru';
             btnSubmitCat.textContent = 'Buat UMKM';
         });
@@ -216,17 +237,22 @@ formCat.reset();
                 const { data, error } = await window.supabaseClient.from('umkm_products').select('*').order('name');
                 if (error) throw error;
                 if (!data || data.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-gray-500">Belum ada data umkm</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-gray-500">Belum ada data umkm</td></tr>';
                     return;
                 }
                 tbody.innerHTML = '';
                 data.forEach(d => {
+                    let rangeHtml = '<span class="text-gray-400 italic text-xs">Tidak diset</span>';
+                    if (d.price_min && d.price_max) {
+                        rangeHtml = `<span class="text-xs font-semibold text-blue-700">Rp ${Number(d.price_min).toLocaleString('id-ID')} — Rp ${Number(d.price_max).toLocaleString('id-ID')}</span>`;
+                    }
                     const tr = document.createElement('tr');
                     tr.className = 'hover:bg-gray-50';
                     tr.innerHTML = `
                         <td class="px-4 py-3 text-gray-400 text-xs font-mono">${d.id}</td>
                         <td class="px-4 py-3 font-medium text-gray-900">${d.name}</td>
                         <td class="px-4 py-3 text-gray-500">${d.slug}</td>
+                        <td class="px-4 py-3">${rangeHtml}</td>
                         <td class="px-4 py-3 space-x-2">
                             <button onclick='editUMKM(${JSON.stringify(d).replace(/'/g, "&#39;")})' class="text-blue-600 hover:text-blue-800 font-bold">Edit</button>
                             <button onclick="deleteUMKM('${d.id}')" class="text-red-600 hover:text-red-800 font-bold">Hapus</button>
@@ -236,7 +262,7 @@ formCat.reset();
                 });
             } catch (err) {
                 console.error("Load UMKM Error:", err);
-                tbody.innerHTML = `<tr><td colspan="3" class="text-center text-red-500 py-4">Gagal memuat data: ${err.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-4">Gagal memuat data: ${err.message}</td></tr>`;
             }
         }
 
@@ -252,8 +278,8 @@ formCat.reset();
                 const umkmMap = {};
                 if (umkmList) umkmList.forEach(u => umkmMap[u.id] = u.name);
 
-                let query = window.supabaseClient.from('category_destinations')
-                    .select('category_id, destination_id, destinations(name)');
+                let query = window.supabaseClient.from('umkm_destinations')
+                    .select('umkm_id, destination_id, destinations(name)');
                 
                 if (filterDestId !== 'all') {
                     query = query.eq('destination_id', filterDestId);
@@ -270,10 +296,9 @@ formCat.reset();
 
                 tbody.innerHTML = '';
                 data.forEach(d => {
-                    const umkmName = umkmMap[d.category_id] || `${d.category_id} (ID UMKM)`;
-                    // Only show if it's likely a UMKM (not a Category)
-                    // Since the user is using the same table, we check if the ID exists in our UMKM map
-                    if (!umkmMap[d.category_id]) return; 
+                    const umkmName = umkmMap[d.umkm_id] || `${d.umkm_id} (ID UMKM)`;
+                    // Only show if it's a valid UMKM
+                    if (!umkmMap[d.umkm_id]) return; 
 
                     const tr = document.createElement('tr');
                     tr.className = 'hover:bg-gray-50';
@@ -281,7 +306,7 @@ formCat.reset();
                         <td class="px-4 py-3 font-medium text-gray-900">${umkmName}</td>
                         <td class="px-4 py-3 text-gray-500">${d.destinations ? d.destinations.name : '-'}</td>
                         <td class="px-4 py-3 space-x-2">
-                            <button onclick="deleteAssign('${d.category_id}', '${d.destination_id}')" class="text-red-600 hover:text-red-800 font-bold">Hapus Tautan</button>
+                            <button onclick="deleteAssign('${d.umkm_id}', '${d.destination_id}')" class="text-red-600 hover:text-red-800 font-bold">Hapus Tautan</button>
                         </td>
                     `;
                     tbody.appendChild(tr);
@@ -308,6 +333,8 @@ formCat.reset();
             document.getElementById('umkm_name').value = d.name;
             document.getElementById('umkm_slug').value = d.slug;
             document.getElementById('umkm_desc').value = d.description || '';
+            document.getElementById('umkm_price_min').value = d.price_min || '';
+            document.getElementById('umkm_price_max').value = d.price_max || '';
             
             formTitleCat.textContent = 'Edit UMKM: ' + d.name;
             document.getElementById('btn-submit-cat').textContent = 'Update UMKM';
@@ -324,26 +351,26 @@ formCat.reset();
                 try {
                     const { error } = await window.supabaseClient.from('umkm_products').delete().eq('id', id);
                     if(error) throw error;
-                    alert('Berhasil dihapus');
+                    window.showToast('UMKM berhasil dihapus!');
                     loadUMKMList();
                     loadDestinationsForCategory();
                 } catch (err) {
                     console.error("Gagal menghapus UMKM:", err);
-                    alert('Gagal menghapus: ' + err.message);
+                    window.showToast('Gagal menghapus: ' + err.message, true);
                 }
             });
         };
 
-        window.deleteAssign = function(catId, destId) {
-            console.log("Menghapus tautan UMKM-Destinasi:", { catId, destId });
+        window.deleteAssign = function(umkmId, destId) {
+            console.log("Menghapus tautan UMKM-Destinasi:", { umkmId, destId });
             window.confirmDelete('Yakin menghapus tautan ini?', async () => {
                 try {
-                    const { error } = await window.supabaseClient.from('category_destinations').delete().eq('category_id', catId).eq('destination_id', destId);
+                    const { error } = await window.supabaseClient.from('umkm_destinations').delete().eq('umkm_id', umkmId).eq('destination_id', destId);
                     if(error) throw error;
                     loadAssignList();
                 } catch (err) {
                     console.error("Gagal menghapus tautan:", err);
-                    alert('Gagal menghapus tautan: ' + err.message);
+                    window.showToast('Gagal menghapus tautan: ' + err.message, true);
                 }
             });
         };
@@ -379,10 +406,15 @@ formCat.reset();
                     }
 
                     
+                    const priceMin = document.getElementById('umkm_price_min').value;
+                    const priceMax = document.getElementById('umkm_price_max').value;
+                    
                     const insertData = {
                         name: document.getElementById('umkm_name').value,
                         slug: document.getElementById('umkm_slug').value,
                         description: document.getElementById('umkm_desc').value,
+                        price_min: priceMin ? Number(priceMin) : null,
+                        price_max: priceMax ? Number(priceMax) : null,
                         ...(imageUrl ? { image_url: imageUrl } : {})
                     };
 
@@ -402,6 +434,7 @@ formCat.reset();
                     catAlertBox.className = "block mt-2 p-3 rounded text-sm text-green-700 bg-green-100 font-bold";
                     
                     catAlertBox.textContent = isUpdate ? "UMKM berhasil diupdate!" : "UMKM berhasil dibuat!";
+                    window.showToast(isUpdate ? 'UMKM berhasil diupdate!' : 'UMKM baru berhasil dibuat!');
                     if(isUpdate) btnCancelCat.click();
                     loadUMKMList();
 
@@ -427,11 +460,11 @@ formCat.reset();
                 
                 try {
                     const insertData = {
-                        category_id: document.getElementById('assign_umkm_id').value,
+                        umkm_id: document.getElementById('assign_umkm_id').value,
                         destination_id: document.getElementById('assign_dest_id').value
                     };
 
-                    const { error } = await window.supabaseClient.from('category_destinations').insert([insertData]);
+                    const { error } = await window.supabaseClient.from('umkm_destinations').insert([insertData]);
                     if(error) {
                         if(error.code === '23505') throw new Error("Destinasi sudah ada di umkm ini.");
                         throw error;
@@ -439,6 +472,7 @@ formCat.reset();
                     
                     assignAlertBox.className = "block mt-2 p-3 rounded text-sm text-green-700 bg-green-100 font-bold";
                     assignAlertBox.textContent = "Berhasil menautkan destinasi ke umkm!";
+                    window.showToast('Berhasil menautkan destinasi ke UMKM!');
                     formAssign.reset();
                     loadAssignList();
                 } catch(e) {

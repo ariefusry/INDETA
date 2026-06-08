@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('login');
+    return view('user.index');
 });
 
 Route::get('/login', function () {
@@ -60,6 +60,10 @@ Route::get('/artikel', function () {
 
 Route::get('/artikel/{slug}', function ($slug) {
     return view('user.artikel_detail', ['slug' => $slug]);
+});
+
+Route::get('/about', function () {
+    return view('user.about');
 });
 
 Route::prefix('admin-dashboard')->group(function () {

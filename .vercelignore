@@ -1,4 +1,4 @@
-# Abaikan folder dependensi (Vercel akan menginstall sendiri)
+# Abaikan folder dependensi
 /vendor
 /node_modules
 
@@ -11,10 +11,18 @@
 /storage/*.log
 
 # PENTING: Abaikan entry point asli Laravel 
-# Supaya tidak bentrok dengan api/index.php
 /public/index.php
-# Abaikan cache package lokal agar Vercel mendeteksi environment production
+
+# Abaikan cache package lokal
 /bootstrap/cache/*.php
 
-# Paksa upload folder build Vite meskipun ada di .gitignore
+# Abaikan file HOT (Penyebab error Vite di production)
+/public/hot
+
+# Paksa upload folder build Vite
 !/public/build
+
+# Abaikan cache internal Laravel
+/storage/framework/views/*.php
+/storage/framework/cache/*.php
+/storage/framework/cache/data/**/*

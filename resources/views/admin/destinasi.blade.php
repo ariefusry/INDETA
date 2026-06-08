@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="p-8">
 <div id="view-destinasi" class="block">
             <div id="form-container" class="hidden bg-[white] rounded-b-2xl rounded-tr-2xl shadow-xl p-6 md:p-10 border border-[gray-200]/30">
 <input type="hidden" id="dest_id">
@@ -32,6 +31,18 @@
                     <textarea id="description" rows="4" required class="w-full px-4 py-3 bg-white border border-[gray-200] text-gray-800 rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 focus:border-[#819E4A] shadow-sm outline-none transition-all leading-relaxed"></textarea>
                 </div>
 
+                <!-- Jadwal & Fasilitas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[gray-100]/30 p-5 rounded-xl border border-[gray-200]/50">
+                    <div>
+                        <label class="block text-sm font-bold text-[#6c853d] mb-2">Jadwal Operasional (opsional)</label>
+                        <textarea id="schedule" rows="4" placeholder="Contoh:\nSenin - Jumat: 08.00 - 17.00\nSabtu - Minggu: 07.00 - 18.00\nLibur Nasional: Tutup" class="w-full px-4 py-3 bg-white border border-[gray-200] text-gray-800 rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 focus:border-[#819E4A] shadow-sm outline-none transition-all leading-relaxed placeholder-gray-400"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-[#6c853d] mb-2">Fasilitas (opsional)</label>
+                        <textarea id="facilities" rows="4" placeholder="Contoh:\nArea Parkir Luas\nToilet Umum\nMusala\nWarung Makan\nSpot Foto" class="w-full px-4 py-3 bg-white border border-[gray-200] text-gray-800 rounded-xl focus:ring-2 focus:ring-[#819E4A]/30 focus:border-[#819E4A] shadow-sm outline-none transition-all leading-relaxed placeholder-gray-400"></textarea>
+                    </div>
+                </div>
+
                 <!-- Media -->
                 <div>
                     <label class="block text-sm font-bold text-[#6c853d] mb-2">Upload Thumbnail Utama (opsional, maks 2MB)</label>
@@ -46,10 +57,10 @@
                     </div>
                     <p id="thumbnail-name" class="mt-2 text-sm text-[#8c8c62] italic hidden"></p>
                     
-                    <!-- Preview Image -->
-                    <div id="dest_image_preview_container" class="mt-4 hidden p-2 bg-white border border-[gray-200] rounded-xl inline-block">
-                        <p class="text-xs font-bold text-[#6c853d] mb-2">Gambar Saat Ini:</p>
-                        <img id="dest_image_preview" src="" alt="Preview" class="h-32 rounded-lg shadow-sm">
+                    <!-- Unified Image Preview -->
+                    <div id="image_preview_container" class="mt-4 hidden p-3 bg-white border border-[gray-200] rounded-xl inline-block">
+                        <p id="image_preview_label" class="text-xs font-bold text-[#6c853d] mb-2">Preview:</p>
+                        <img id="image_preview_img" src="" alt="Preview" class="h-36 rounded-lg shadow-sm object-cover">
                     </div>
                 </div>
 
@@ -113,7 +124,6 @@
 
         
 </div>
-</div>
 @endsection
 @section('scripts')
 <script>
@@ -135,8 +145,31 @@
             document.getElementById('slug').value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         });
 
+        // Live thumbnail preview on file select
+        document.getElementById('thumbnail').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const previewContainer = document.getElementById('image_preview_container');
+            const previewImg = document.getElementById('image_preview_img');
+            const previewLabel = document.getElementById('image_preview_label');
+            const nameEl = document.getElementById('thumbnail-name');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    previewImg.src = ev.target.result;
+                    previewLabel.textContent = 'Preview Upload:';
+                    previewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+                nameEl.textContent = file.name;
+                nameEl.classList.remove('hidden');
+            } else {
+                previewContainer.classList.add('hidden');
+                nameEl.classList.add('hidden');
+            }
+        });
+
         btnAddNew.addEventListener('click', () => {
-            document.getElementById('dest_image_preview_container').classList.add('hidden');
+            document.getElementById('image_preview_container').classList.add('hidden');
             formContainer.classList.remove('hidden');
             tableContainer.classList.add('hidden');
             btnCancel.classList.remove('hidden'); 
@@ -147,10 +180,9 @@
         });
 
         btnCancel.addEventListener('click', () => {
-                        document.getElementById('dest_image_preview_container').classList.add('hidden');
-form.reset();
+            document.getElementById('image_preview_container').classList.add('hidden');
+            form.reset();
             document.getElementById('dest_id').value = '';
-            document.getElementById('dest_image_preview_container').classList.add('hidden');
             formContainer.classList.add('hidden');
             tableContainer.classList.remove('hidden');
         });
@@ -193,15 +225,18 @@ form.reset();
         window.editDestinasi = function(d) {
             if (d.thumbnail) {
                 const { data } = window.supabaseClient.storage.from('destinations').getPublicUrl(d.thumbnail);
-                document.getElementById('dest_image_preview').src = data.publicUrl;
-                document.getElementById('dest_image_preview_container').classList.remove('hidden');
+                document.getElementById('image_preview_img').src = data.publicUrl;
+                document.getElementById('image_preview_label').textContent = 'Gambar Saat Ini:';
+                document.getElementById('image_preview_container').classList.remove('hidden');
             } else {
-                document.getElementById('dest_image_preview_container').classList.add('hidden');
+                document.getElementById('image_preview_container').classList.add('hidden');
             }
             document.getElementById('dest_id').value = d.id;
             document.getElementById('name').value = d.name;
             document.getElementById('slug').value = d.slug;
             document.getElementById('description').value = d.description || '';
+            document.getElementById('schedule').value = d.schedule || '';
+            document.getElementById('facilities').value = d.facilities || '';
             document.getElementById('contact_details').value = d.contact_details || '';
             document.getElementById('gmaps_url').value = d.gmaps_url || '';
             document.getElementById('social_media_url').value = d.social_media ? d.social_media.url : '';
@@ -225,11 +260,11 @@ form.reset();
                 try {
                     const { error } = await window.supabaseClient.from('destinations').delete().eq('id', id);
                     if(error) throw error;
-                    alert('Berhasil dihapus');
+                    window.showToast('Destinasi berhasil dihapus!');
                     loadDestinasi();
                 } catch (err) {
                     console.error("Gagal menghapus destinasi:", err);
-                    alert('Gagal menghapus: ' + err.message);
+                    window.showToast('Gagal menghapus: ' + err.message, true);
                 }
             });
         };
@@ -240,7 +275,7 @@ form.reset();
         form.addEventListener('submit', async (e) => {
             console.log("Form submit triggered!");
             e.preventDefault();
-            alert("Tombol submit ditekan!");
+
             btnSubmit.disabled = true;
             btnSubmit.textContent = "Menyimpan & Mengunggah...";
             alertBox.className = "hidden";
@@ -250,6 +285,8 @@ form.reset();
                 const name = document.getElementById('name').value;
                 const slug = document.getElementById('slug').value;
                 const description = document.getElementById('description').value;
+                const schedule = document.getElementById('schedule').value;
+                const facilities = document.getElementById('facilities').value;
                 const contact_details = document.getElementById('contact_details').value;
                 const gmaps_url = document.getElementById('gmaps_url').value;
                 const social_media_url = document.getElementById('social_media_url').value;
@@ -280,6 +317,8 @@ form.reset();
                     name: name,
                     slug: slug,
                     description: description,
+                    schedule: schedule || null,
+                    facilities: facilities || null,
                     contact_details: contact_details,
                     gmaps_url: gmaps_url,
                     social_media: social_media_url ? { url: social_media_url } : null,
@@ -304,6 +343,7 @@ form.reset();
                 console.log("Berhasil insert data:", insertData);
                 
                 alertBox.textContent = isUpdate ? "Destinasi berhasil diupdate!" : "Berhasil! Destinasi baru telah ditambahkan.";
+                window.showToast(isUpdate ? 'Destinasi berhasil diupdate!' : 'Destinasi baru berhasil ditambahkan!');
                 loadDestinasi();
                 if(isUpdate) btnCancel.click(); // reset and hide cancel
 
@@ -312,7 +352,7 @@ form.reset();
 
             } catch (err) {
                 console.error("Error detail:", err);
-                alert("Gagal: " + err.message); // Menambahkan popup peringatan agar lebih terihat
+                window.showToast('Gagal: ' + err.message, true);
                 alertBox.textContent = err.message;
                 alertBox.className = "block p-4 rounded-lg text-sm font-medium bg-red-100 text-red-700 mb-4";
             } finally {

@@ -1,61 +1,17 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artikel - INDETA</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-[#819E4A] shadow-md transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <a href="/index.html" class="flex-shrink-0 flex items-center cursor-pointer z-50">
-                    <img src="{{ asset('images/logo INdeta Fix.png') }}" alt="Logo INdeta" class="h-10 md:h-12 w-auto">
-                </a>
+@extends('user.layouts.app')
 
-                <!-- Navigation -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="/index.html" class="nav-home text-white hover:text-gray-200 font-semibold transition-colors">Home</a>
-                    <a href="/destinasi" class="nav-destinasi text-white hover:text-gray-200 font-semibold transition-colors">Destination</a>
-                    <a href="/categories" class="nav-categories text-white hover:text-gray-200 font-semibold transition-colors">Categories</a>
-                    <a href="/product" class="nav-product text-white hover:text-gray-200 font-semibold transition-colors">Product</a>
-                    <a href="/artikel" class="px-5 py-2 bg-black/20 rounded-[30px] text-white font-bold transition-colors">Article</a>
-                    <a href="#" class="nav-about text-white hover:text-gray-200 font-semibold transition-colors">About Us</a>
-                </nav>
+@section('title', 'Artikel - INDETA')
 
-                <!-- Auth/Profile -->
-                <div class="flex items-center space-x-4">
-                    <div id="auth-buttons">
-                        <a href="/login" id="btn-login" class="px-5 py-2 border-2 border-white text-white hover:bg-white hover:text-[#819E4A] rounded-full font-semibold transition-colors text-sm">Login</a>
-                    </div>
-                    
-                    <div id="user-profile" class="hidden flex flex-col items-center justify-center relative group cursor-pointer z-[100]">
-                        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white mb-1 shadow-sm">
-                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="user-avatar" class="w-full h-full object-cover">
-                        </div>
-                        <span id="welcome-text" class="text-[10px] text-white/90">Welcome "name"</span>
-                        
-                        <!-- Logout Dropdown -->
-                        <div class="absolute top-12 right-0 bg-white text-gray-800 rounded-lg shadow-xl py-2 w-40 hidden group-hover:block transition-all border border-gray-100">
-                              <a href="/admin-dashboard" id="btn-admin-dashboard" class="hidden block w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600 font-bold text-sm transition-colors border-b border-gray-100">Dashboard Admin</a>
-                              <button type="button" id="btn-logout-dropdown" class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 font-bold text-sm transition-colors">Logout</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+@section('body-class', 'bg-white text-gray-800 font-sans antialiased overflow-x-hidden')
 
+@section('content')
     <!-- Main Section -->
     <main class="relative min-h-[90vh] py-12 bg-white">
         <div class="relative z-10 max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header & Search -->
             <div class="flex flex-col items-center justify-between mb-12 relative w-full pt-4">
                 <div class="w-full flex justify-center items-center mb-8">
-                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 tracking-wide drop-shadow-sm">Artikel</h1>
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 tracking-wide drop-shadow-sm text-center">Artikel Terbaru</h1>
                 </div>
                 <div class="w-full relative z-20 flex justify-center md:justify-end">
                     <div class="relative w-full md:w-80">
@@ -64,8 +20,8 @@
                 </div>
             </div>
 
-            <!-- Destinations Grid -->
-            <div id="articles-grid" class="flex flex-wrap justify-center gap-6 md:gap-8 px-2 md:px-0">
+            <!-- Articles Grid -->
+            <div id="articles-grid" class="flex flex-wrap justify-center gap-4 md:gap-6 px-2 md:px-0">
                 <!-- Loading State -->
                 <div class="w-full text-center text-gray-600 text-xl py-10">
                     Memuat artikel...
@@ -73,76 +29,17 @@
             </div>
         </div>
     </main>
-    </div>
+@endsection
 
-    <!-- Supabase Logic -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-
+@section('scripts')
     <script>
-      const SUPABASE_URL = @json(config('services.supabase.url'));
-      const SUPABASE_ANON_KEY = @json(config('services.supabase.key'));
-
-      let supabaseClient = null;
-
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        }
-
-        const btnLogoutDropdown = document.getElementById('btn-logout-dropdown');
-        const authButtons = document.getElementById('auth-buttons');
-        const userProfile = document.getElementById('user-profile');
-        
-        async function checkSession() {
-            if (!supabaseClient) return;
-            const { data, error } = await supabaseClient.auth.getSession();
-            if(!error && data && data.session && data.session.user) {
-                if(authButtons) authButtons.classList.add('hidden');
-                if(userProfile) userProfile.classList.remove('hidden');
-                
-                const meta = data.session.user.user_metadata || {};
-                const name = meta.full_name || data.session.user.email.split('@')[0];
-                const shortName = name.split(' ')[0];
-                
-                
-                const welcomeText = document.getElementById('welcome-text');
-                const userAvatar = document.getElementById('user-avatar');
-                if(welcomeText) welcomeText.textContent = `Welcome "${shortName}"`;
-                if(userAvatar) userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
-
-                // Admin check
-                const { data: roleData } = await supabaseClient
-                    .from('users')
-                    .select('role')
-                    .eq('email', data.session.user.email)
-                    .maybeSingle();
-                
-                if(roleData && roleData.role === 'admin') {
-                    const btnAdmin = document.getElementById('btn-admin-dashboard');
-                    if(btnAdmin) btnAdmin.classList.remove('hidden');
-                }
-
-            }
-        }
-
-        if (btnLogoutDropdown) {
-            btnLogoutDropdown.addEventListener('click', async () => {
-                if(!supabaseClient) return;
-                btnLogoutDropdown.textContent = 'Logout...';
-                await supabaseClient.auth.signOut();
-                window.location.reload();
-            });
-        }
-
-        checkSession();
-
-      const destinationsGrid = document.getElementById('articles-grid');
+      const articlesGrid = document.getElementById('articles-grid');
       const searchInput = document.getElementById('searchInput');
       let allArticles = [];
 
       async function fetchArticles() {
         if (!supabaseClient) {
-          destinationsGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Koneksi database gagal.</div>';
+          articlesGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Koneksi database gagal.</div>';
           return;
         }
         
@@ -153,7 +50,7 @@
 
         if (error) {
           console.error(error);
-          destinationsGrid.innerHTML = '<div class="w-full text-center text-red-500 bg-white/10 py-4 rounded-lg">Gagal memuat data artikel.</div>';
+          articlesGrid.innerHTML = '<div class="w-full text-center text-red-500 bg-white/10 py-4 rounded-lg">Gagal memuat data artikel.</div>';
           return;
         }
 
@@ -161,48 +58,40 @@
         renderArticles(allArticles);
       }
 
-      function renderArticles(destinationsToRender) {
-        if (destinationsToRender.length === 0) {
-            destinationsGrid.innerHTML = '<div class="w-full text-center text-gray-600 py-10 text-xl">Tidak ada artikel yang cocok.</div>';
+      function renderArticles(articlesToRender) {
+        if (articlesToRender.length === 0) {
+            articlesGrid.innerHTML = '<div class="w-full text-center text-gray-600 py-10 text-xl">Tidak ada artikel yang cocok.</div>';
             return;
         }
 
-          destinationsGrid.innerHTML = destinationsToRender.map(dest => {
-            let imageUrl = dest.thumbnail;
+          articlesGrid.innerHTML = articlesToRender.map(art => {
+            let imageUrl = art.thumbnail;
             if (imageUrl && !imageUrl.startsWith('http')) {
-               imageUrl = `${SUPABASE_URL}/storage/v1/object/public/articles/${imageUrl}`;
+               imageUrl = `${window.SUPABASE_URL}/storage/v1/object/public/articles/${imageUrl}`;
             } else if (!imageUrl) {
                imageUrl = 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=800&auto=format&fit=crop'; // fallback
             }
 
             return `
-              <a href="/artikel/${dest.slug}" class="rounded-2xl w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.67rem)] lg:w-[calc(20%-1.2rem)] relative aspect-square md:aspect-[4/5] bg-gray-200 overflow-hidden shadow-lg group cursor-pointer hover:-translate-y-1 transition-transform duration-300 block">
-                  <img src="${imageUrl}" alt="${dest.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[600ms]">
+              <a href="/artikel/${art.slug}" class="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-[calc(25%-1.125rem)] lg:w-[calc(20%-1.2rem)] xl:w-[calc(16.666%-1.25rem)] rounded-2xl relative aspect-square md:aspect-[4/5] bg-gray-200 overflow-hidden shadow-lg group cursor-pointer hover:-translate-y-1 transition-transform duration-300 block">
+                  <img src="${imageUrl}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[600ms]">
                   <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                   <div class="absolute bottom-5 left-0 w-full text-left px-4">
-                      <h3 class="text-white font-bold text-lg md:text-xl drop-shadow-md leading-tight line-clamp-2" title="${dest.title}">${dest.title}</h3>
+                      <h3 class="text-white font-bold text-lg md:text-xl drop-shadow-md leading-tight line-clamp-2" title="${art.title}">${art.title}</h3>
                   </div>
               </a>
             `;
         }).join('');
       }
 
-      searchInput.addEventListener('input', (e) => {
+      searchInput?.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        const filtered = allArticles.filter(d => 
-          d.title.toLowerCase().includes(searchTerm)
+        const filtered = allArticles.filter(a => 
+          a.title.toLowerCase().includes(searchTerm)
         );
         renderArticles(filtered);
       });
 
       fetchArticles();
     </script>
-</body>
-</html>
-
-
-
-
-
-
-
+@endsection

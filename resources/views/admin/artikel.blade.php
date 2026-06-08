@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="p-8">
 <div id="view-artikel" class="block">
             <div id="form-container" class="hidden bg-[white] rounded-b-2xl rounded-tr-2xl shadow-xl p-6 md:p-10 border border-[gray-200]/30">
 <input type="hidden" id="art_id">
@@ -96,7 +95,6 @@
         </div>
     
         
-</div>
 </div>
 @endsection
 @section('scripts')
@@ -202,11 +200,11 @@
                 try {
                     const { error } = await window.supabaseClient.from('articles').delete().eq('id', id);
                     if(error) throw error;
-                    alert('Berhasil dihapus');
+                    window.showToast('Artikel berhasil dihapus!');
                     loadArtikel();
                 } catch (err) {
                     console.error("Gagal menghapus artikel:", err);
-                    alert('Gagal menghapus: ' + err.message);
+                    window.showToast('Gagal menghapus: ' + err.message, true);
                 }
             });
         };
@@ -262,6 +260,7 @@
 
                     
                     artAlertBox.textContent = isUpdate ? "Artikel berhasil diupdate!" : "Artikel berhasil ditambahkan!";
+                    window.showToast(isUpdate ? 'Artikel berhasil diupdate!' : 'Artikel baru berhasil ditambahkan!');
                     loadArtikel();
                     if(isUpdate) btnCancelArt.click();
 
@@ -301,7 +300,7 @@
             const destId = document.getElementById('ekstra_destination_id').value;
             const alertBox = document.getElementById('umkm-alert-box');
             
-            if(!destId) { alert("Pilih destinasi dulu!"); return; }
+            if(!destId) { window.showToast('Pilih destinasi dulu!', true); return; }
             
             btn.disabled = true; btn.textContent = "Upload...";
             try {
@@ -343,7 +342,8 @@
                 if(error) throw error;
                 
                 alertBox.className = "block mt-2 p-3 rounded text-sm text-green-700 bg-green-100 font-bold";
-                alertBox.textContent = "UMKM Berhasil dtambahkan!";
+                alertBox.textContent = "UMKM Berhasil ditambahkan!";
+                window.showToast('UMKM berhasil ditambahkan!');
                 document.getElementById('form-add-umkm').reset();
             } catch(e) {
                 alertBox.className = "block mt-2 p-3 rounded text-sm text-red-700 bg-red-100 font-bold";
@@ -400,7 +400,7 @@
             const destId = document.getElementById('ekstra_destination_id').value;
             const alertBox = document.getElementById('paket-alert-box');
             
-            if(!destId) { alert("Pilih destinasi dulu!"); return; }
+            if(!destId) { window.showToast('Pilih destinasi dulu!', true); return; }
             
             btn.disabled = true; btn.textContent = "Upload...";
             try {
@@ -442,6 +442,7 @@
                 
                 alertBox.className = "block mt-2 p-3 rounded text-sm text-green-700 bg-green-100 font-bold";
                 alertBox.textContent = "Paket berhasil ditambahkan!";
+                window.showToast('Paket berhasil ditambahkan!');
                 document.getElementById('form-add-paket').reset();
             } catch(e) {
                 alertBox.className = "block mt-2 p-3 rounded text-sm text-red-700 bg-red-100 font-bold";
@@ -467,7 +468,7 @@
         form.addEventListener('submit', async (e) => {
             console.log("Form submit triggered!");
             e.preventDefault();
-            alert("Tombol submit ditekan!");
+
             btnSubmit.disabled = true;
             btnSubmit.textContent = "Menyimpan & Mengunggah...";
             alertBox.className = "hidden";
